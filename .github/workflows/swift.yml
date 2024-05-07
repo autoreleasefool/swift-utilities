@@ -1,0 +1,29 @@
+name: Swift CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths:
+      - ".github/workflows/swift.yml"
+      - "Sources/"
+      - "Tests/"
+      - "Package.swift"
+      - "Package.resolved"
+      - ".swiftlint.yml"
+
+concurrency:
+  group: swift-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: android
+    steps:
+      - uses: actions/checkout@v4
+      - name: SwiftLint
+        uses: norio-nomura/action-swiftlint@3.2.1
