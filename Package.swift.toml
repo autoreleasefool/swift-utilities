@@ -1,0 +1,15 @@
+name = "swift-utilities"
+tools_version = "5.9"
+default_localization = "en"
+
+# Platforms
+
+[platforms.iOS]
+supported = ["\"17.0\""]
+
+[platforms.macOS]
+supported = ["\"14.0\""]
+
+# Libraries
+
+[libraries.Equatable]
