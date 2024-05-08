@@ -24,10 +24,12 @@ let package = Package(
 
 		// MARK: - Libraries
 		.library(name: "EquatableLibrary", targets: ["EquatableLibrary"]),
+		.library(name: "ExtensionsLibrary", targets: ["ExtensionsLibrary"]),
+		.library(name: "SwiftUIExtensionsLibrary", targets: ["SwiftUIExtensionsLibrary"]),
 	],
 	dependencies: [
 		.package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.2.2"),
-		.package(url: "https://github.com/weichsel/ZIPFoundation.git", from: "0.9.18"),
+		.package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.16.0"),
 	],
 	targets: [
 		// MARK: - Features
@@ -40,7 +42,6 @@ let package = Package(
 		.target(
 			name: "FileManagerService",
 			dependencies: [
-				.product(name: "ZIPFoundation", package: "ZIPFoundation"),
 				"FileManagerServiceInterface",
 			]
 		),
@@ -86,6 +87,27 @@ let package = Package(
 			name: "EquatableLibraryTests",
 			dependencies: [
 				"EquatableLibrary",
+			]
+		),
+		.target(
+			name: "ExtensionsLibrary",
+			dependencies: []
+		),
+		.testTarget(
+			name: "ExtensionsLibraryTests",
+			dependencies: [
+				"ExtensionsLibrary",
+			]
+		),
+		.target(
+			name: "SwiftUIExtensionsLibrary",
+			dependencies: []
+		),
+		.testTarget(
+			name: "SwiftUIExtensionsLibraryTests",
+			dependencies: [
+				.product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
+				"SwiftUIExtensionsLibrary",
 			]
 		),
 	]
