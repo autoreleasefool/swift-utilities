@@ -17,11 +17,14 @@ let package = Package(
 		// MARK: - Data Providers
 
 		// MARK: - Services
+		.library(name: "PasteboardService", targets: ["PasteboardService"]),
+		.library(name: "PasteboardServiceInterface", targets: ["PasteboardServiceInterface"]),
 
 		// MARK: - Libraries
 		.library(name: "EquatableLibrary", targets: ["EquatableLibrary"]),
 	],
 	dependencies: [
+		.package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.2.2"),
 	],
 	targets: [
 		// MARK: - Features
@@ -31,6 +34,25 @@ let package = Package(
 		// MARK: - Data Providers
 
 		// MARK: - Services
+		.target(
+			name: "PasteboardService",
+			dependencies: [
+				"PasteboardServiceInterface",
+			]
+		),
+		.target(
+			name: "PasteboardServiceInterface",
+			dependencies: [
+				.product(name: "Dependencies", package: "swift-dependencies"),
+				.product(name: "DependenciesMacros", package: "swift-dependencies"),
+			]
+		),
+		.testTarget(
+			name: "PasteboardServiceTests",
+			dependencies: [
+				"PasteboardService",
+			]
+		),
 
 		// MARK: - Libraries
 		.target(

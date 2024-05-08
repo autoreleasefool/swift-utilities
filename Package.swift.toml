@@ -5,11 +5,29 @@ default_localization = "en"
 # Platforms
 
 [platforms.iOS]
-supported = ["\"17.0\""]
+supported = [ "\"17.0\"" ]
 
 [platforms.macOS]
-supported = ["\"14.0\""]
+supported = [ "\"14.0\"" ]
+
+# Services
+
+[services.Pasteboard.interface]
+dependencies = [ "Dependencies", "DependenciesMacros" ]
 
 # Libraries
 
 [libraries.Equatable]
+
+# Dependencies
+
+[versionRefs.Dependencies]
+from = "1.2.2"
+
+[dependencies.Dependencies]
+url = "https://github.com/pointfreeco/swift-dependencies.git"
+versionRef = "Dependencies"
+
+[dependencies.DependenciesMacros]
+url = "https://github.com/pointfreeco/swift-dependencies.git"
+versionRef = "Dependencies"
