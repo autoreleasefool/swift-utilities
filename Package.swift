@@ -17,6 +17,8 @@ let package = Package(
 		// MARK: - Data Providers
 
 		// MARK: - Services
+		.library(name: "FileManagerService", targets: ["FileManagerService"]),
+		.library(name: "FileManagerServiceInterface", targets: ["FileManagerServiceInterface"]),
 		.library(name: "PasteboardService", targets: ["PasteboardService"]),
 		.library(name: "PasteboardServiceInterface", targets: ["PasteboardServiceInterface"]),
 
@@ -25,6 +27,7 @@ let package = Package(
 	],
 	dependencies: [
 		.package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.2.2"),
+		.package(url: "https://github.com/weichsel/ZIPFoundation.git", from: "0.9.18"),
 	],
 	targets: [
 		// MARK: - Features
@@ -34,6 +37,26 @@ let package = Package(
 		// MARK: - Data Providers
 
 		// MARK: - Services
+		.target(
+			name: "FileManagerService",
+			dependencies: [
+				.product(name: "ZIPFoundation", package: "ZIPFoundation"),
+				"FileManagerServiceInterface",
+			]
+		),
+		.target(
+			name: "FileManagerServiceInterface",
+			dependencies: [
+				.product(name: "Dependencies", package: "swift-dependencies"),
+				.product(name: "DependenciesMacros", package: "swift-dependencies"),
+			]
+		),
+		.testTarget(
+			name: "FileManagerServiceTests",
+			dependencies: [
+				"FileManagerService",
+			]
+		),
 		.target(
 			name: "PasteboardService",
 			dependencies: [
