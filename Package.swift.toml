@@ -30,6 +30,9 @@ dependencies = [ "Dependencies", "DependenciesMacros" ]
 [libraries.SwiftUIExtensions.tests]
 dependencies = [ "SnapshotTesting" ]
 
+[libraries.TestUtilities]
+skip_tests = true
+
 # Dependency Versions
 
 [versionRefs.Dependencies]

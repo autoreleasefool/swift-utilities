@@ -3,8 +3,7 @@ import XCTest
 
 final class CollectionExtensionsTests: XCTestCase {
 
-	// MARK; - toggle
-
+	// MARK: - toggle
 
 	func test_toggle_whenItemInSet_removesItem() {
 		var items: Set<String> = ["first", "second"]

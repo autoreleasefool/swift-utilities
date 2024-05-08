@@ -4,7 +4,7 @@ import XCTest
 
 final class BindingsExtensionTests: XCTestCase {
 	func test_isPresent_whenNil_isFalse() {
-		var bindingValue: Value? = nil
+		var bindingValue: Value?
 		let binding: Binding<Value?> = Binding(get: { bindingValue }, set: { bindingValue = $0 })
 
 		XCTAssertFalse(binding.isPresent().wrappedValue)
