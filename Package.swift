@@ -17,6 +17,8 @@ let package = Package(
 		// MARK: - Data Providers
 
 		// MARK: - Services
+		.library(name: "BundleService", targets: ["BundleService"]),
+		.library(name: "BundleServiceInterface", targets: ["BundleServiceInterface"]),
 		.library(name: "FileManagerService", targets: ["FileManagerService"]),
 		.library(name: "FileManagerServiceInterface", targets: ["FileManagerServiceInterface"]),
 		.library(name: "PasteboardService", targets: ["PasteboardService"]),
@@ -42,6 +44,19 @@ let package = Package(
 		// MARK: - Data Providers
 
 		// MARK: - Services
+		.target(
+			name: "BundleService",
+			dependencies: [
+				"BundleServiceInterface",
+			]
+		),
+		.target(
+			name: "BundleServiceInterface",
+			dependencies: [
+				.product(name: "Dependencies", package: "swift-dependencies"),
+				.product(name: "DependenciesMacros", package: "swift-dependencies"),
+			]
+		),
 		.target(
 			name: "FileManagerService",
 			dependencies: [

@@ -12,6 +12,11 @@ supported = [ "\"14.0\"" ]
 
 # Services
 
+[services.Bundle]
+skip_tests = true
+[services.Bundle.interface]
+dependencies = [ "Dependencies", "DependenciesMacros" ]
+
 [services.FileManager]
 [services.FileManager.interface]
 dependencies = [ "Dependencies", "DependenciesMacros" ]
