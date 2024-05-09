@@ -28,6 +28,7 @@ let package = Package(
 		.library(name: "EquatableLibrary", targets: ["EquatableLibrary"]),
 		.library(name: "ExtensionsLibrary", targets: ["ExtensionsLibrary"]),
 		.library(name: "SwiftUIExtensionsLibrary", targets: ["SwiftUIExtensionsLibrary"]),
+		.library(name: "TestUtilitiesLibrary", targets: ["TestUtilitiesLibrary"]),
 	],
 	dependencies: [
 		.package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.2.2"),
@@ -130,6 +131,10 @@ let package = Package(
 				.product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
 				"SwiftUIExtensionsLibrary",
 			]
+		),
+		.target(
+			name: "TestUtilitiesLibrary",
+			dependencies: []
 		),
 	]
 )
