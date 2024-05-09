@@ -20,6 +20,10 @@ dependencies = [ "Dependencies", "DependenciesMacros" ]
 [services.Pasteboard.interface]
 dependencies = [ "Dependencies", "DependenciesMacros" ]
 
+[services.UserDefaults]
+[services.UserDefaults.interface]
+dependencies = [ "Dependencies", "DependenciesMacros" ]
+
 # Libraries
 
 [libraries.Equatable]

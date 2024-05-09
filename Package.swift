@@ -21,6 +21,8 @@ let package = Package(
 		.library(name: "FileManagerServiceInterface", targets: ["FileManagerServiceInterface"]),
 		.library(name: "PasteboardService", targets: ["PasteboardService"]),
 		.library(name: "PasteboardServiceInterface", targets: ["PasteboardServiceInterface"]),
+		.library(name: "UserDefaultsService", targets: ["UserDefaultsService"]),
+		.library(name: "UserDefaultsServiceInterface", targets: ["UserDefaultsServiceInterface"]),
 
 		// MARK: - Libraries
 		.library(name: "EquatableLibrary", targets: ["EquatableLibrary"]),
@@ -75,6 +77,25 @@ let package = Package(
 			name: "PasteboardServiceTests",
 			dependencies: [
 				"PasteboardService",
+			]
+		),
+		.target(
+			name: "UserDefaultsService",
+			dependencies: [
+				"UserDefaultsServiceInterface",
+			]
+		),
+		.target(
+			name: "UserDefaultsServiceInterface",
+			dependencies: [
+				.product(name: "Dependencies", package: "swift-dependencies"),
+				.product(name: "DependenciesMacros", package: "swift-dependencies"),
+			]
+		),
+		.testTarget(
+			name: "UserDefaultsServiceTests",
+			dependencies: [
+				"UserDefaultsService",
 			]
 		),
 
