@@ -25,17 +25,20 @@ let package = Package(
 		.library(name: "FileManagerServiceInterface", targets: ["FileManagerServiceInterface"]),
 		.library(name: "PasteboardService", targets: ["PasteboardService"]),
 		.library(name: "PasteboardServiceInterface", targets: ["PasteboardServiceInterface"]),
+		.library(name: "SentryErrorReportingService", targets: ["SentryErrorReportingService"]),
 		.library(name: "TelemetryDeckAnalyticsService", targets: ["TelemetryDeckAnalyticsService"]),
 		.library(name: "UserDefaultsService", targets: ["UserDefaultsService"]),
 		.library(name: "UserDefaultsServiceInterface", targets: ["UserDefaultsServiceInterface"]),
 
 		// MARK: - Libraries
 		.library(name: "EquatableLibrary", targets: ["EquatableLibrary"]),
+		.library(name: "ErrorReportingClientLibrary", targets: ["ErrorReportingClientLibrary"]),
 		.library(name: "ExtensionsLibrary", targets: ["ExtensionsLibrary"]),
 		.library(name: "SwiftUIExtensionsLibrary", targets: ["SwiftUIExtensionsLibrary"]),
 		.library(name: "TestUtilitiesLibrary", targets: ["TestUtilitiesLibrary"]),
 	],
 	dependencies: [
+		.package(url: "https://github.com/getsentry/sentry-cocoa.git", from: "8.21.0"),
 		.package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.2.2"),
 		.package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.16.0"),
 		.package(url: "https://github.com/TelemetryDeck/SwiftClient.git", from: "1.5.1"),
@@ -119,6 +122,13 @@ let package = Package(
 			]
 		),
 		.target(
+			name: "SentryErrorReportingService",
+			dependencies: [
+				.product(name: "Sentry", package: "sentry-cocoa"),
+				"ErrorReportingClientLibrary",
+			]
+		),
+		.target(
 			name: "TelemetryDeckAnalyticsService",
 			dependencies: [
 				.product(name: "TelemetryClient", package: "SwiftClient"),
@@ -162,6 +172,13 @@ let package = Package(
 			name: "EquatableLibraryTests",
 			dependencies: [
 				"EquatableLibrary",
+			]
+		),
+		.target(
+			name: "ErrorReportingClientLibrary",
+			dependencies: [
+				.product(name: "Dependencies", package: "swift-dependencies"),
+				.product(name: "DependenciesMacros", package: "swift-dependencies"),
 			]
 		),
 		.target(

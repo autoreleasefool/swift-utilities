@@ -24,6 +24,12 @@ skip_tests = true
 [services.Bundle.interface]
 dependencies = [ "Dependencies", "DependenciesMacros" ]
 
+[services.SentryErrorReporting]
+skip_interface = true
+skip_tests = true
+libraries = [ "ErrorReportingClient" ]
+dependencies = [ "Sentry" ]
+
 [services.FileManager]
 [services.FileManager.interface]
 dependencies = [ "Dependencies", "DependenciesMacros" ]
@@ -39,6 +45,10 @@ dependencies = [ "Dependencies", "DependenciesMacros" ]
 # Libraries
 
 [libraries.Equatable]
+
+[libraries.ErrorReportingClient]
+skip_tests = true
+dependencies = [ "Dependencies", "DependenciesMacros" ]
 
 [libraries.Extensions]
 
@@ -63,6 +73,10 @@ versionRef = "Dependencies"
 [dependencies.DependenciesMacros]
 url = "https://github.com/pointfreeco/swift-dependencies.git"
 versionRef = "Dependencies"
+
+[dependencies.Sentry]
+url = "https://github.com/getsentry/sentry-cocoa.git"
+from = "8.21.0"
 
 [dependencies.SnapshotTesting]
 suitable_for_dependents_matching = "\\w+Tests$"
