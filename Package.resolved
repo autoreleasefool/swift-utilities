@@ -55,6 +55,15 @@
       }
     },
     {
+      "identity" : "swiftclient",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/TelemetryDeck/SwiftClient.git",
+      "state" : {
+        "revision" : "d20ccc4b8266cf739eede58cdfc7e9c6ffb41cda",
+        "version" : "1.5.1"
+      }
+    },
+    {
       "identity" : "xctest-dynamic-overlay",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
