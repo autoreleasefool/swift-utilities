@@ -13,6 +13,10 @@ final class PasteboardServiceTests: XCTestCase {
 	@Dependency(\.pasteboard) var pasteboard
 
 	func test_copyToClipboard_copiesString() async throws {
+		#if canImport(UIKit)
+		try XCTSkipIf(true, "Skipped because pasting on iOS requires manual intervention")
+		#endif
+
 		let stringToCopy = "Copied to clipboard"
 		try await withDependencies {
 			$0.pasteboard.copyToClipboard = PasteboardService.liveValue.copyToClipboard
