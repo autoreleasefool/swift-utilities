@@ -71,7 +71,6 @@ final class FeatureFlagsServiceTests: XCTestCase {
 		XCTAssertFalse(isEnabled)
 	}
 
-
 	// MARK: - allEnabled
 
 	func test_allEnabled_whenAllFlagsEnabled_returnsTrue() throws {
@@ -341,7 +340,12 @@ extension FeatureFlag {
 	static let test = Self(name: "Test", introduced: "2024-05-10", stage: .test)
 	static let development = Self(name: "Development", introduced: "2024-05-10", stage: .development)
 	static let release = Self(name: "Release", introduced: "2024-05-10", stage: .release)
-	static let notOverridable = Self(name: "Not Overridable", introduced: "2024-05-10", stage: .development, isOverridable: false)
+	static let notOverridable = Self(
+		name: "Not Overridable",
+		introduced: "2024-05-10",
+		stage: .development,
+		isOverridable: false
+	)
 
 	static let all: [FeatureFlag] = [
 		.disabled,

@@ -11,6 +11,7 @@ extension NSNotification.Name {
 extension UserDefaultsService: DependencyKey {
 	public static var liveValue = live()
 
+	// swiftlint:disable:next function_body_length
 	static func live() -> Self {
 		let userDefaults = UncheckedSendable(UserDefaults.standard)
 

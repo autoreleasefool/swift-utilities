@@ -68,7 +68,7 @@ final class AppInfoServiceTests: XCTestCase {
 			$0.userDefaults.setInt = { @Sendable _, _ in }
 			$0.userDefaults.int = { @Sendable _ in nil }
 			$0.userDefaults.double = { @Sendable _ in 1_234_567_890 }
-			$0.userDefaults.setDouble = { @Sendable key, value in
+			$0.userDefaults.setDouble = { @Sendable _, _ in
 				expectation.fulfill()
 			}
 			$0.date = .constant(Date(timeIntervalSince1970: 1_234_567_891))
