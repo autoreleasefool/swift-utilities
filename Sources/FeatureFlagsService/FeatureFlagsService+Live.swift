@@ -12,10 +12,7 @@ extension NSNotification.Name {
 }
 
 extension FeatureFlagsService: DependencyKey {
-	public static var liveValue = live()
-
-	// swiftlint:disable:next function_body_length
-	static func live() -> Self {
+	public static var liveValue: Self {
 		@Dependency(\.featureFlagsQueue) var queue
 
 		let flagManager = FeatureFlagOverrides(queue: queue)

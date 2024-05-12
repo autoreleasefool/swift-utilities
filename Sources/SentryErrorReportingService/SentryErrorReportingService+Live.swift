@@ -3,9 +3,7 @@ import ErrorReportingClientLibrary
 import Sentry
 
 extension ErrorReportingClient: DependencyKey {
-	public static var liveValue = live()
-
-	static func live() -> Self {
+	public static var liveValue: Self {
 		Self(
 			captureError: { error in SentrySDK.capture(error: error) },
 			captureMessage: { message in SentrySDK.capture(message: message) }

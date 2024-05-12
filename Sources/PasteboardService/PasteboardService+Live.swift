@@ -7,9 +7,7 @@ import AppKit
 #endif
 
 extension PasteboardService: DependencyKey {
-	public static var liveValue = live()
-
-	static func live() -> Self {
+	public static var liveValue: Self {
 		Self(
 			copyToClipboard: { value in
 #if canImport(UIKit)

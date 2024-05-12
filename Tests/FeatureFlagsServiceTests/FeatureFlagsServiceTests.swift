@@ -33,7 +33,7 @@ final class FeatureFlagsServiceTests: XCTestCase {
 
 		try withDependencies {
 			$0.userDefaults.bool = { @Sendable key in overrides.value[key] }
-			$0.featureFlags = .live()
+			$0.featureFlags = .liveValue
 		} operation: {
 			self.featureFlags.initialize(registeringFeatureFlags: FeatureFlag.all)
 
@@ -50,7 +50,7 @@ final class FeatureFlagsServiceTests: XCTestCase {
 	func test_isEnabled_whenEnabled_isTrue() throws {
 		let isEnabled = try withDependencies {
 			$0.userDefaults.bool = { @Sendable _ in nil }
-			$0.featureFlags = .live()
+			$0.featureFlags = .liveValue
 		} operation: {
 			self.featureFlags.initialize(registeringFeatureFlags: FeatureFlag.all)
 			return try self.featureFlags.isEnabled(.release)
@@ -62,7 +62,7 @@ final class FeatureFlagsServiceTests: XCTestCase {
 	func test_isEnabled_whenDisabled_isFalse() throws {
 		let isEnabled = try withDependencies {
 			$0.userDefaults.bool = { @Sendable _ in nil }
-			$0.featureFlags = .live()
+			$0.featureFlags = .liveValue
 		} operation: {
 			self.featureFlags.initialize(registeringFeatureFlags: FeatureFlag.all)
 			return try self.featureFlags.isEnabled(.disabled)
@@ -82,7 +82,7 @@ final class FeatureFlagsServiceTests: XCTestCase {
 
 		let allEnabled = try withDependencies {
 			$0.userDefaults.bool = { @Sendable _ in nil }
-			$0.featureFlags = .live()
+			$0.featureFlags = .liveValue
 		} operation: {
 			self.featureFlags.initialize(registeringFeatureFlags: flags)
 			return try self.featureFlags.allEnabled(flags)
@@ -100,7 +100,7 @@ final class FeatureFlagsServiceTests: XCTestCase {
 
 		let allEnabled = try withDependencies {
 			$0.userDefaults.bool = { @Sendable _ in nil }
-			$0.featureFlags = .live()
+			$0.featureFlags = .liveValue
 		} operation: {
 			self.featureFlags.initialize(registeringFeatureFlags: flags)
 			return try self.featureFlags.allEnabled(flags)
@@ -118,7 +118,7 @@ final class FeatureFlagsServiceTests: XCTestCase {
 
 		let allEnabled = try withDependencies {
 			$0.userDefaults.bool = { @Sendable _ in nil }
-			$0.featureFlags = .live()
+			$0.featureFlags = .liveValue
 		} operation: {
 			self.featureFlags.initialize(registeringFeatureFlags: flags)
 			return try self.featureFlags.allEnabled(flags)
@@ -133,7 +133,7 @@ final class FeatureFlagsServiceTests: XCTestCase {
 		try await withDependencies {
 			$0.userDefaults.bool = { @Sendable _ in nil }
 			$0.userDefaults.setBool = { @Sendable _, _ in }
-			$0.featureFlags = .live()
+			$0.featureFlags = .liveValue
 		} operation: {
 			self.featureFlags.initialize(registeringFeatureFlags: FeatureFlag.all)
 
@@ -153,7 +153,7 @@ final class FeatureFlagsServiceTests: XCTestCase {
 		try await withDependencies {
 			$0.userDefaults.bool = { @Sendable _ in nil }
 			$0.userDefaults.setBool = { @Sendable _, _ in }
-			$0.featureFlags = .live()
+			$0.featureFlags = .liveValue
 		} operation: {
 			self.featureFlags.initialize(registeringFeatureFlags: FeatureFlag.all)
 
@@ -176,7 +176,7 @@ final class FeatureFlagsServiceTests: XCTestCase {
 		try await withDependencies {
 			$0.userDefaults.bool = { @Sendable _ in nil }
 			$0.userDefaults.setBool = { @Sendable _, _ in }
-			$0.featureFlags = .live()
+			$0.featureFlags = .liveValue
 		} operation: {
 			self.featureFlags.initialize(registeringFeatureFlags: FeatureFlag.all)
 
@@ -200,7 +200,7 @@ final class FeatureFlagsServiceTests: XCTestCase {
 		try await withDependencies {
 			$0.userDefaults.bool = { @Sendable _ in nil }
 			$0.userDefaults.setBool = { @Sendable _, _ in }
-			$0.featureFlags = .live()
+			$0.featureFlags = .liveValue
 		} operation: {
 			self.featureFlags.initialize(registeringFeatureFlags: FeatureFlag.all)
 
@@ -223,7 +223,7 @@ final class FeatureFlagsServiceTests: XCTestCase {
 		try await withDependencies {
 			$0.userDefaults.bool = { @Sendable _ in nil }
 			$0.userDefaults.setBool = { @Sendable _, _ in }
-			$0.featureFlags = .live()
+			$0.featureFlags = .liveValue
 		} operation: {
 			self.featureFlags.initialize(registeringFeatureFlags: FeatureFlag.all)
 
@@ -243,7 +243,7 @@ final class FeatureFlagsServiceTests: XCTestCase {
 		try withDependencies {
 			$0.userDefaults.bool = { @Sendable _ in nil }
 			$0.userDefaults.setBool = { @Sendable _, _ in }
-			$0.featureFlags = .live()
+			$0.featureFlags = .liveValue
 		} operation: {
 			self.featureFlags.initialize(registeringFeatureFlags: FeatureFlag.all)
 
@@ -270,7 +270,7 @@ final class FeatureFlagsServiceTests: XCTestCase {
 				overrides.withValue { $0[key] = value }
 				expectation.fulfill()
 			}
-			$0.featureFlags = .live()
+			$0.featureFlags = .liveValue
 		} operation: {
 			self.featureFlags.initialize(registeringFeatureFlags: FeatureFlag.all)
 
@@ -290,7 +290,7 @@ final class FeatureFlagsServiceTests: XCTestCase {
 		try withDependencies {
 			$0.userDefaults.bool = { @Sendable key in overrides.value[key] }
 			$0.userDefaults.setBool = { @Sendable key, value in overrides.withValue { $0[key] = value } }
-			$0.featureFlags = .live()
+			$0.featureFlags = .liveValue
 		} operation: {
 			self.featureFlags.initialize(registeringFeatureFlags: FeatureFlag.all)
 
@@ -319,7 +319,7 @@ final class FeatureFlagsServiceTests: XCTestCase {
 			$0.userDefaults.bool = { @Sendable key in overrides.value[key] }
 			$0.userDefaults.setBool = { @Sendable key, value in overrides.withValue { $0[key] = value } }
 			$0.userDefaults.remove = { @Sendable key in overrides.withValue { $0[key] = nil } }
-			$0.featureFlags = .live()
+			$0.featureFlags = .liveValue
 		} operation: {
 			self.featureFlags.initialize(registeringFeatureFlags: FeatureFlag.all)
 

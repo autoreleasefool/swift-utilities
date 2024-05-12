@@ -7,9 +7,7 @@ import TelemetryClient
 import UserDefaultsServiceInterface
 
 extension AnalyticsService: DependencyKey {
-	public static var liveValue = live()
-
-	static func live() -> Self {
+	public static var liveValue: Self {
 		let properties = ActorIsolated<[String: String]>([:])
 		let userDefaultsOptInKey = "telemetryDeckAnalyticsOptIn"
 

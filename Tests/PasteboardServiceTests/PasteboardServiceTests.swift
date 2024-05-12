@@ -17,7 +17,7 @@ final class PasteboardServiceTests: XCTestCase {
 		try XCTSkipIf(true, "Skipped because pasting on iOS requires manual intervention")
 		#endif
 
-		let liveValue: PasteboardService = .live()
+		let liveValue: PasteboardService = .liveValue
 
 		let stringToCopy = "Copied to clipboard"
 		try await withDependencies {

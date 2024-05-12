@@ -7,7 +7,7 @@ final class AnalyticsServiceTests: XCTestCase {
 	@Dependency(\.analytics) var analytics
 
 	func test_getOptInStatus_isOptedInByDefault() {
-		let liveValue: AnalyticsService = .live()
+		let liveValue: AnalyticsService = .liveValue
 
 		let optInStatus = withDependencies {
 			$0.analytics.getOptInStatus = liveValue.getOptInStatus
@@ -19,7 +19,7 @@ final class AnalyticsServiceTests: XCTestCase {
 	}
 
 	func test_setOptInStatus_updatedStatus() async throws {
-		let liveValue: AnalyticsService = .live()
+		let liveValue: AnalyticsService = .liveValue
 
 		let firstUpdate = try await withDependencies {
 			$0.analytics.getOptInStatus = liveValue.getOptInStatus

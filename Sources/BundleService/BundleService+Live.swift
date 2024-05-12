@@ -11,5 +11,5 @@ extension BundleService: DependencyKey {
 		)
 	}
 
-	public static var liveValue = create(withBundle: .main)
+	public static var liveValue: Self { create(withBundle: .main) }
 }

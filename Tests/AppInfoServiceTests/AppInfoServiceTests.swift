@@ -10,7 +10,7 @@ final class AppInfoServiceTests: XCTestCase {
 	// MARK: - initialize
 
 	func test_initialize_onlyInitializesOnce() async {
-		let liveValue: AppInfoService = .live()
+		let liveValue: AppInfoService = .liveValue
 		let expectation = self.expectation(description: "update app session")
 		expectation.assertForOverFulfill = true
 
@@ -36,7 +36,7 @@ final class AppInfoServiceTests: XCTestCase {
 	}
 
 	func test_initialize_setsInstallDate() async {
-		let liveValue: AppInfoService = .live()
+		let liveValue: AppInfoService = .liveValue
 		let expectation = self.expectation(description: "set install date")
 
 		await withDependencies {
@@ -60,7 +60,7 @@ final class AppInfoServiceTests: XCTestCase {
 	}
 
 	func test_initialize_doesNotOverrideInstallDate() async {
-		let liveValue: AppInfoService = .live()
+		let liveValue: AppInfoService = .liveValue
 		let expectation = self.expectation(description: "set install date")
 		expectation.isInverted = true
 
@@ -83,7 +83,7 @@ final class AppInfoServiceTests: XCTestCase {
 	}
 
 	func test_initialize_updatesSessionCount() async {
-		let liveValue: AppInfoService = .live()
+		let liveValue: AppInfoService = .liveValue
 		let expectation = self.expectation(description: "update app session")
 
 		await withDependencies {
@@ -109,7 +109,7 @@ final class AppInfoServiceTests: XCTestCase {
 	// MARK: - getNumberOfSessions
 
 	func test_getNumberOfSessions_returnsZeroByDefault() {
-		let liveValue: AppInfoService = .live()
+		let liveValue: AppInfoService = .liveValue
 
 		let numberOfSessions = withDependencies {
 			$0.userDefaults.int = { @Sendable _ in nil }
@@ -122,7 +122,7 @@ final class AppInfoServiceTests: XCTestCase {
 	}
 
 	func test_getNumberOfSessions_returnsValue() {
-		let liveValue: AppInfoService = .live()
+		let liveValue: AppInfoService = .liveValue
 
 		let numberOfSessions = withDependencies {
 			$0.userDefaults.int = { @Sendable _ in 92 }
@@ -137,7 +137,7 @@ final class AppInfoServiceTests: XCTestCase {
 	// MARK: - getInstallDate
 
 	func test_getInstallDate_returnsZeroByDefault() {
-		let liveValue: AppInfoService = .live()
+		let liveValue: AppInfoService = .liveValue
 
 		let installDate = withDependencies {
 			$0.userDefaults.double = { @Sendable _ in nil }
@@ -150,7 +150,7 @@ final class AppInfoServiceTests: XCTestCase {
 	}
 
 	func test_getInstallDate_returnsValue() {
-		let liveValue: AppInfoService = .live()
+		let liveValue: AppInfoService = .liveValue
 
 		let installDate = withDependencies {
 			$0.userDefaults.double = { @Sendable _ in 1_234_567_890 }
@@ -165,7 +165,7 @@ final class AppInfoServiceTests: XCTestCase {
 	// MARK: - getAppVersion
 
 	func test_getAppVersion_returnsValue() {
-		let liveValue: AppInfoService = .live()
+		let liveValue: AppInfoService = .liveValue
 
 		let appVersion = withDependencies {
 			$0.bundle.object = { @Sendable _ in "1.2.3" }
@@ -180,7 +180,7 @@ final class AppInfoServiceTests: XCTestCase {
 	// MARK: - getBuildVersion
 
 	func test_getBuildVersion_returnsValue() {
-		let liveValue: AppInfoService = .live()
+		let liveValue: AppInfoService = .liveValue
 
 		let buildVersion = withDependencies {
 			$0.bundle.object = { @Sendable _ in "92" }
@@ -195,7 +195,7 @@ final class AppInfoServiceTests: XCTestCase {
 	// MARK: - getFullAppVersion
 
 	func test_getFullAppVersion_returnsValue() {
-		let liveValue: AppInfoService = .live()
+		let liveValue: AppInfoService = .liveValue
 
 		let fullAppVersion = withDependencies {
 			$0.bundle.object = { @Sendable key in

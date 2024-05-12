@@ -11,7 +11,7 @@ final class TelemetryDeckAnalyticsServiceTests: XCTestCase {
 	// MARK: - initialize
 
 	func test_initialize_withNoBundleKey_disablesAnalytics() throws {
-		let liveValue: AnalyticsService = .live()
+		let liveValue: AnalyticsService = .liveValue
 		let expectation = self.expectation(description: "initialized")
 
 		try withDependencies {
@@ -30,7 +30,7 @@ final class TelemetryDeckAnalyticsServiceTests: XCTestCase {
 	}
 
 	func test_intialize_withOptedInStatusOptedOut_disablesAnalytics() throws {
-		let liveValue: AnalyticsService = .live()
+		let liveValue: AnalyticsService = .liveValue
 		let expectation = self.expectation(description: "initialized")
 
 		try withDependencies {
@@ -49,7 +49,7 @@ final class TelemetryDeckAnalyticsServiceTests: XCTestCase {
 	}
 
 	func test_initialize_withBundleKey_withOptedInStatusOptedIn_enablesAnalytics() throws {
-		let liveValue: AnalyticsService = .live()
+		let liveValue: AnalyticsService = .liveValue
 
 		let expectation = self.expectation(description: "initialized")
 		try withDependencies {
@@ -70,7 +70,7 @@ final class TelemetryDeckAnalyticsServiceTests: XCTestCase {
 	// MARK: - trackEvent
 
 	func test_trackEvent_sendsEvent() async throws {
-		let liveValue: AnalyticsService = .live()
+		let liveValue: AnalyticsService = .liveValue
 		let expectation = self.expectation(description: "event tracked")
 
 		try await withDependencies {
@@ -91,7 +91,7 @@ final class TelemetryDeckAnalyticsServiceTests: XCTestCase {
 	}
 
 	func test_trackEvent_withGlobalProperties_mergesProperties() async throws {
-		let liveValue: AnalyticsService = .live()
+		let liveValue: AnalyticsService = .liveValue
 		let expectation = self.expectation(description: "event tracked")
 
 		try await withDependencies {
@@ -118,7 +118,7 @@ final class TelemetryDeckAnalyticsServiceTests: XCTestCase {
 	// MARK: setGlobalProperties
 
 	func test_setGlobalProperty_setsPropertyForAllRequests() async throws {
-		let liveValue: AnalyticsService = .live()
+		let liveValue: AnalyticsService = .liveValue
 		let expectation = self.expectation(description: "event tracked")
 		expectation.expectedFulfillmentCount = 2
 
@@ -154,7 +154,7 @@ final class TelemetryDeckAnalyticsServiceTests: XCTestCase {
 	}
 
 	func test_setGlobalProperty_removesProperty() async throws {
-		let liveValue: AnalyticsService = .live()
+		let liveValue: AnalyticsService = .liveValue
 		let expectation = self.expectation(description: "event tracked")
 		expectation.expectedFulfillmentCount = 2
 
@@ -198,7 +198,7 @@ final class TelemetryDeckAnalyticsServiceTests: XCTestCase {
 	// MARK: setOptInStatus
 
 	func test_setOptInStatus_setsValueInUserDefaults() async throws {
-		let liveValue: AnalyticsService = .live()
+		let liveValue: AnalyticsService = .liveValue
 		let optInStatus = LockIsolated<Analytics.OptInStatus>(.optedIn)
 
 		try await withDependencies {
@@ -219,7 +219,7 @@ final class TelemetryDeckAnalyticsServiceTests: XCTestCase {
 	}
 
 	func test_setOptInStatus_reinitializesTelemetryDeck() async throws {
-		let liveValue: AnalyticsService = .live()
+		let liveValue: AnalyticsService = .liveValue
 		let terminateExpectation = self.expectation(description: "terminated")
 		let initializeExpectation = self.expectation(description: "initialized")
 
@@ -244,7 +244,7 @@ final class TelemetryDeckAnalyticsServiceTests: XCTestCase {
 	// MARK: - getOptInStatus
 
 	func test_getOptInStatus_returnsValue() async throws {
-		let liveValue: AnalyticsService = .live()
+		let liveValue: AnalyticsService = .liveValue
 		let optInStatusCache = LockIsolated<Analytics.OptInStatus>(.optedOut)
 
 		let optInStatus = withDependencies {

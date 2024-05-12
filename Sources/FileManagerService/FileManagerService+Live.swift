@@ -3,9 +3,7 @@ import FileManagerServiceInterface
 import Foundation
 
 extension FileManagerService: DependencyKey {
-	public static var liveValue = live()
-
-	static func live() -> Self {
+	public static var liveValue: Self {
 		@Sendable func getTemporaryDirectory() -> URL {
 			FileManager.default.temporaryDirectory
 		}

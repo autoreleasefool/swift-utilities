@@ -5,9 +5,7 @@ import Foundation
 import UserDefaultsServiceInterface
 
 extension AppInfoService: DependencyKey {
-	public static var liveValue = live()
-
-	static func live() -> Self {
+	public static var liveValue: Self {
 		let initialized = ActorIsolated(false)
 
 		@Sendable func getNumberOfSessions() -> Int {

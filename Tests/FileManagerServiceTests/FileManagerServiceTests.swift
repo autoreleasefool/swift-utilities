@@ -19,7 +19,7 @@ final class FileManagerServiceTests: XCTestCase {
 	// MARK: - getFileContents
 
 	func test_getFileContents() throws {
-		let liveValue: FileManagerService = .live()
+		let liveValue: FileManagerService = .liveValue
 		let originalContents = "file contents"
 		let filePath = try getTempFolder().appendingPathComponent("temp.txt")
 		try FileManager.default.createDirectory(at: try getTempFolder(), withIntermediateDirectories: true)
@@ -39,7 +39,7 @@ final class FileManagerServiceTests: XCTestCase {
 	// MARK: - getUserDirectory
 
 	func test_getUserDirectory() throws {
-		let liveValue: FileManagerService = .live()
+		let liveValue: FileManagerService = .liveValue
 		let userDirectory = try withDependencies {
 			$0.fileManager.getUserDirectory = liveValue.getUserDirectory
 		} operation: {
@@ -52,7 +52,7 @@ final class FileManagerServiceTests: XCTestCase {
 	// MARK: - exists
 
 	func test_exists() throws {
-		let liveValue: FileManagerService = .live()
+		let liveValue: FileManagerService = .liveValue
 		try withDependencies {
 			$0.fileManager.exists = liveValue.exists
 			$0.fileManager.createDirectory = liveValue.createDirectory
@@ -66,7 +66,7 @@ final class FileManagerServiceTests: XCTestCase {
 	// MARK: - createDirectory
 
 	func test_createDirectory() throws {
-		let liveValue: FileManagerService = .live()
+		let liveValue: FileManagerService = .liveValue
 		try withDependencies {
 			$0.fileManager.exists = liveValue.exists
 			$0.fileManager.createDirectory = liveValue.createDirectory
@@ -80,7 +80,7 @@ final class FileManagerServiceTests: XCTestCase {
 	// MARK: - remove
 
 	func test_remove() throws {
-		let liveValue: FileManagerService = .live()
+		let liveValue: FileManagerService = .liveValue
 		try withDependencies {
 			$0.fileManager.exists = liveValue.exists
 			$0.fileManager.createDirectory = liveValue.createDirectory

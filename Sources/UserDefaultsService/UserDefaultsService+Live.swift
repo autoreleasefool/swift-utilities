@@ -9,10 +9,7 @@ extension NSNotification.Name {
 }
 
 extension UserDefaultsService: DependencyKey {
-	public static var liveValue = live()
-
-	// swiftlint:disable:next function_body_length
-	static func live() -> Self {
+	public static var liveValue: Self {
 		let userDefaults = UncheckedSendable(UserDefaults.standard)
 
 		@Sendable func contains(_ key: String) -> Bool {
