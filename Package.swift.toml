@@ -19,6 +19,11 @@ skip_interface = true
 services = [ "Analytics", "Bundle", "UserDefaults" ]
 dependencies = [ "TelemetryClient" ]
 
+[services.AppInfo]
+services = [ "Bundle", "UserDefaults" ]
+[services.AppInfo.interface]
+dependencies = [ "Dependencies", "DependenciesMacros" ]
+
 [services.Bundle]
 skip_tests = true
 [services.Bundle.interface]

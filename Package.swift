@@ -19,6 +19,8 @@ let package = Package(
 		// MARK: - Services
 		.library(name: "AnalyticsService", targets: ["AnalyticsService"]),
 		.library(name: "AnalyticsServiceInterface", targets: ["AnalyticsServiceInterface"]),
+		.library(name: "AppInfoService", targets: ["AppInfoService"]),
+		.library(name: "AppInfoServiceInterface", targets: ["AppInfoServiceInterface"]),
 		.library(name: "BundleService", targets: ["BundleService"]),
 		.library(name: "BundleServiceInterface", targets: ["BundleServiceInterface"]),
 		.library(name: "FeatureFlagsService", targets: ["FeatureFlagsService"]),
@@ -71,6 +73,27 @@ let package = Package(
 			name: "AnalyticsServiceTests",
 			dependencies: [
 				"AnalyticsService",
+			]
+		),
+		.target(
+			name: "AppInfoService",
+			dependencies: [
+				"AppInfoServiceInterface",
+				"BundleServiceInterface",
+				"UserDefaultsServiceInterface",
+			]
+		),
+		.target(
+			name: "AppInfoServiceInterface",
+			dependencies: [
+				.product(name: "Dependencies", package: "swift-dependencies"),
+				.product(name: "DependenciesMacros", package: "swift-dependencies"),
+			]
+		),
+		.testTarget(
+			name: "AppInfoServiceTests",
+			dependencies: [
+				"AppInfoService",
 			]
 		),
 		.target(
