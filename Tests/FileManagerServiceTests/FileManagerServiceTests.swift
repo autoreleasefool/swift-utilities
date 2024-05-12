@@ -19,6 +19,7 @@ final class FileManagerServiceTests: XCTestCase {
 	// MARK: - getFileContents
 
 	func test_getFileContents() throws {
+		let liveValue: FileManagerService = .live()
 		let originalContents = "file contents"
 		let filePath = try getTempFolder().appendingPathComponent("temp.txt")
 		try FileManager.default.createDirectory(at: try getTempFolder(), withIntermediateDirectories: true)
@@ -26,7 +27,7 @@ final class FileManagerServiceTests: XCTestCase {
 		try originalData.write(to: filePath)
 
 		let readData = try withDependencies {
-			$0.fileManager.getFileContents = FileManagerService.liveValue.getFileContents
+			$0.fileManager.getFileContents = liveValue.getFileContents
 		} operation: {
 			try self.fileManager.getFileContents(filePath)
 		}
@@ -38,8 +39,9 @@ final class FileManagerServiceTests: XCTestCase {
 	// MARK: - getUserDirectory
 
 	func test_getUserDirectory() throws {
+		let liveValue: FileManagerService = .live()
 		let userDirectory = try withDependencies {
-			$0.fileManager.getUserDirectory = FileManagerService.liveValue.getUserDirectory
+			$0.fileManager.getUserDirectory = liveValue.getUserDirectory
 		} operation: {
 			try self.fileManager.getUserDirectory()
 		}
@@ -50,9 +52,10 @@ final class FileManagerServiceTests: XCTestCase {
 	// MARK: - exists
 
 	func test_exists() throws {
+		let liveValue: FileManagerService = .live()
 		try withDependencies {
-			$0.fileManager.exists = FileManagerService.liveValue.exists
-			$0.fileManager.createDirectory = FileManagerService.liveValue.createDirectory
+			$0.fileManager.exists = liveValue.exists
+			$0.fileManager.createDirectory = liveValue.createDirectory
 		} operation: {
 			XCTAssertFalse(try self.fileManager.exists(try getTempFolder()))
 			XCTAssertNoThrow(try fileManager.createDirectory(try getTempFolder()))
@@ -63,9 +66,10 @@ final class FileManagerServiceTests: XCTestCase {
 	// MARK: - createDirectory
 
 	func test_createDirectory() throws {
+		let liveValue: FileManagerService = .live()
 		try withDependencies {
-			$0.fileManager.exists = FileManagerService.liveValue.exists
-			$0.fileManager.createDirectory = FileManagerService.liveValue.createDirectory
+			$0.fileManager.exists = liveValue.exists
+			$0.fileManager.createDirectory = liveValue.createDirectory
 		} operation: {
 			XCTAssertFalse(try self.fileManager.exists(try getTempFolder()))
 			XCTAssertNoThrow(try fileManager.createDirectory(try getTempFolder()))
@@ -76,10 +80,11 @@ final class FileManagerServiceTests: XCTestCase {
 	// MARK: - remove
 
 	func test_remove() throws {
+		let liveValue: FileManagerService = .live()
 		try withDependencies {
-			$0.fileManager.exists = FileManagerService.liveValue.exists
-			$0.fileManager.createDirectory = FileManagerService.liveValue.createDirectory
-			$0.fileManager.remove = FileManagerService.liveValue.remove
+			$0.fileManager.exists = liveValue.exists
+			$0.fileManager.createDirectory = liveValue.createDirectory
+			$0.fileManager.remove = liveValue.remove
 		} operation: {
 			XCTAssertNoThrow(try fileManager.createDirectory(try getTempFolder()))
 			XCTAssertTrue(try self.fileManager.exists(try getTempFolder()))

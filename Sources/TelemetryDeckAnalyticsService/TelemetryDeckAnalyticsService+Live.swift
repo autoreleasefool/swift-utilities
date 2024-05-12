@@ -7,7 +7,9 @@ import TelemetryClient
 import UserDefaultsServiceInterface
 
 extension AnalyticsService: DependencyKey {
-	public static var liveValue: Self = {
+	public static var liveValue = live()
+
+	static func live() -> Self {
 		let properties = ActorIsolated<[String: String]>([:])
 		let userDefaultsOptInKey = "telemetryDeckAnalyticsOptIn"
 
@@ -64,7 +66,7 @@ extension AnalyticsService: DependencyKey {
 				return getOptInStatus()
 			}
 		)
-	}()
+	}
 }
 
 @DependencyClient
@@ -79,9 +81,13 @@ extension TelemetryDeckClient: TestDependencyKey {
 }
 
 extension TelemetryDeckClient: DependencyKey {
-	static var liveValue = Self(
-		initialize: { configuration in TelemetryManager.initialize(with: configuration) },
-		send: { name, payload in TelemetryManager.send(name, with: payload) },
-		terminate: { TelemetryManager.terminate() }
-	)
+	static var liveValue = live()
+
+	static func live() -> Self {
+		Self(
+			initialize: { configuration in TelemetryManager.initialize(with: configuration) },
+			send: { name, payload in TelemetryManager.send(name, with: payload) },
+			terminate: { TelemetryManager.terminate() }
+		)
+	}
 }

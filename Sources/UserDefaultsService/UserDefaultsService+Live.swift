@@ -9,7 +9,9 @@ extension NSNotification.Name {
 }
 
 extension UserDefaultsService: DependencyKey {
-	public static var liveValue: Self = {
+	public static var liveValue = live()
+
+	static func live() -> Self {
 		let userDefaults = UncheckedSendable(UserDefaults.standard)
 
 		@Sendable func contains(_ key: String) -> Bool {
@@ -68,5 +70,5 @@ extension UserDefaultsService: DependencyKey {
 				}
 			}
 		)
-	}()
+	}
 }

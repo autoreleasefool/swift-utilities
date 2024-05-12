@@ -12,7 +12,9 @@ extension NSNotification.Name {
 }
 
 extension FeatureFlagsService: DependencyKey {
-	public static var liveValue: Self = {
+	public static var liveValue = live()
+
+	static func live() -> Self {
 		@Dependency(\.featureFlagsQueue) var queue
 
 		let flagManager = FeatureFlagOverrides(queue: queue)
@@ -86,7 +88,7 @@ extension FeatureFlagsService: DependencyKey {
 				}
 			}
 		)
-	}()
+	}
 }
 
 class FeatureFlagOverrides {
