@@ -10,7 +10,7 @@ extension Logger {
 
 extension AnalyticsService: DependencyKey {
 	public static var liveValue: Self = {
-		let optInStatus: LockIsolated<Analytics.OptInStatus> = LockIsolated(.optedIn)
+		let optInStatus = LockIsolated<Analytics.OptInStatus>(.optedIn)
 
 		return Self(
 			initialize: { },
