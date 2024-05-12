@@ -21,6 +21,8 @@ let package = Package(
 		.library(name: "AnalyticsServiceInterface", targets: ["AnalyticsServiceInterface"]),
 		.library(name: "BundleService", targets: ["BundleService"]),
 		.library(name: "BundleServiceInterface", targets: ["BundleServiceInterface"]),
+		.library(name: "FeatureFlagsService", targets: ["FeatureFlagsService"]),
+		.library(name: "FeatureFlagsServiceInterface", targets: ["FeatureFlagsServiceInterface"]),
 		.library(name: "FileManagerService", targets: ["FileManagerService"]),
 		.library(name: "FileManagerServiceInterface", targets: ["FileManagerServiceInterface"]),
 		.library(name: "PasteboardService", targets: ["PasteboardService"]),
@@ -34,6 +36,7 @@ let package = Package(
 		.library(name: "EquatableLibrary", targets: ["EquatableLibrary"]),
 		.library(name: "ErrorReportingClientLibrary", targets: ["ErrorReportingClientLibrary"]),
 		.library(name: "ExtensionsLibrary", targets: ["ExtensionsLibrary"]),
+		.library(name: "FeatureFlagsLibrary", targets: ["FeatureFlagsLibrary"]),
 		.library(name: "SwiftUIExtensionsLibrary", targets: ["SwiftUIExtensionsLibrary"]),
 		.library(name: "TestUtilitiesLibrary", targets: ["TestUtilitiesLibrary"]),
 	],
@@ -81,6 +84,28 @@ let package = Package(
 			dependencies: [
 				.product(name: "Dependencies", package: "swift-dependencies"),
 				.product(name: "DependenciesMacros", package: "swift-dependencies"),
+			]
+		),
+		.target(
+			name: "FeatureFlagsService",
+			dependencies: [
+				"BundleServiceInterface",
+				"FeatureFlagsServiceInterface",
+				"UserDefaultsServiceInterface",
+			]
+		),
+		.target(
+			name: "FeatureFlagsServiceInterface",
+			dependencies: [
+				.product(name: "Dependencies", package: "swift-dependencies"),
+				.product(name: "DependenciesMacros", package: "swift-dependencies"),
+				"FeatureFlagsLibrary",
+			]
+		),
+		.testTarget(
+			name: "FeatureFlagsServiceTests",
+			dependencies: [
+				"FeatureFlagsService",
 			]
 		),
 		.target(
@@ -189,6 +214,16 @@ let package = Package(
 			name: "ExtensionsLibraryTests",
 			dependencies: [
 				"ExtensionsLibrary",
+			]
+		),
+		.target(
+			name: "FeatureFlagsLibrary",
+			dependencies: []
+		),
+		.testTarget(
+			name: "FeatureFlagsLibraryTests",
+			dependencies: [
+				"FeatureFlagsLibrary",
 			]
 		),
 		.target(

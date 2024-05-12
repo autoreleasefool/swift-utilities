@@ -30,6 +30,12 @@ skip_tests = true
 libraries = [ "ErrorReportingClient" ]
 dependencies = [ "Sentry" ]
 
+[services.FeatureFlags]
+services = [ "Bundle", "UserDefaults" ]
+[services.FeatureFlags.interface]
+libraries = [ "FeatureFlags" ]
+dependencies = [ "Dependencies", "DependenciesMacros" ]
+
 [services.FileManager]
 [services.FileManager.interface]
 dependencies = [ "Dependencies", "DependenciesMacros" ]
@@ -51,6 +57,8 @@ skip_tests = true
 dependencies = [ "Dependencies", "DependenciesMacros" ]
 
 [libraries.Extensions]
+
+[libraries.FeatureFlags]
 
 [libraries.SwiftUIExtensions]
 [libraries.SwiftUIExtensions.tests]
