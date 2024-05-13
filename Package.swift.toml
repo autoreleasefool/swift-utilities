@@ -49,6 +49,11 @@ dependencies = [ "Dependencies", "DependenciesMacros" ]
 [services.Pasteboard.interface]
 dependencies = [ "Dependencies", "DependenciesMacros" ]
 
+[services.StoreReview]
+services = [ "AppInfo", "UserDefaults" ]
+[services.StoreReview.interface]
+dependencies = [ "Dependencies", "DependenciesMacros" ]
+
 [services.UserDefaults]
 [services.UserDefaults.interface]
 dependencies = [ "Dependencies", "DependenciesMacros" ]

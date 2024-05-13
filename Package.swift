@@ -30,6 +30,8 @@ let package = Package(
 		.library(name: "PasteboardService", targets: ["PasteboardService"]),
 		.library(name: "PasteboardServiceInterface", targets: ["PasteboardServiceInterface"]),
 		.library(name: "SentryErrorReportingService", targets: ["SentryErrorReportingService"]),
+		.library(name: "StoreReviewService", targets: ["StoreReviewService"]),
+		.library(name: "StoreReviewServiceInterface", targets: ["StoreReviewServiceInterface"]),
 		.library(name: "TelemetryDeckAnalyticsService", targets: ["TelemetryDeckAnalyticsService"]),
 		.library(name: "UserDefaultsService", targets: ["UserDefaultsService"]),
 		.library(name: "UserDefaultsServiceInterface", targets: ["UserDefaultsServiceInterface"]),
@@ -174,6 +176,27 @@ let package = Package(
 			dependencies: [
 				.product(name: "Sentry", package: "sentry-cocoa"),
 				"ErrorReportingClientLibrary",
+			]
+		),
+		.target(
+			name: "StoreReviewService",
+			dependencies: [
+				"AppInfoServiceInterface",
+				"StoreReviewServiceInterface",
+				"UserDefaultsServiceInterface",
+			]
+		),
+		.target(
+			name: "StoreReviewServiceInterface",
+			dependencies: [
+				.product(name: "Dependencies", package: "swift-dependencies"),
+				.product(name: "DependenciesMacros", package: "swift-dependencies"),
+			]
+		),
+		.testTarget(
+			name: "StoreReviewServiceTests",
+			dependencies: [
+				"StoreReviewService",
 			]
 		),
 		.target(
