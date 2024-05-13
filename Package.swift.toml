@@ -67,6 +67,9 @@ skip_tests = true
 dependencies = [ "Dependencies", "DependenciesMacros" ]
 
 [libraries.Extensions]
+dependencies = [ "AsyncAlgorithms", "ConcurrencyExtras" ]
+[libraries.Extensions.tests]
+dependencies = [ "Dependencies" ]
 
 [libraries.FeatureFlags]
 
@@ -84,6 +87,10 @@ from = "1.2.2"
 
 # Dependencies
 
+[dependencies.AsyncAlgorithms]
+url = "https://github.com/apple/swift-async-algorithms.git"
+from = "1.0.0"
+
 [dependencies.Dependencies]
 url = "https://github.com/pointfreeco/swift-dependencies.git"
 versionRef = "Dependencies"
@@ -91,6 +98,10 @@ versionRef = "Dependencies"
 [dependencies.DependenciesMacros]
 url = "https://github.com/pointfreeco/swift-dependencies.git"
 versionRef = "Dependencies"
+
+[dependencies.ConcurrencyExtras]
+url = "https://github.com/pointfreeco/swift-concurrency-extras.git"
+from = "1.1.0"
 
 [dependencies.Sentry]
 url = "https://github.com/getsentry/sentry-cocoa.git"

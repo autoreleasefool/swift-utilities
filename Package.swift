@@ -45,7 +45,9 @@ let package = Package(
 		.library(name: "TestUtilitiesLibrary", targets: ["TestUtilitiesLibrary"]),
 	],
 	dependencies: [
+		.package(url: "https://github.com/apple/swift-async-algorithms.git", from: "1.0.0"),
 		.package(url: "https://github.com/getsentry/sentry-cocoa.git", from: "8.21.0"),
+		.package(url: "https://github.com/pointfreeco/swift-concurrency-extras.git", from: "1.1.0"),
 		.package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.2.2"),
 		.package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.16.0"),
 		.package(url: "https://github.com/TelemetryDeck/SwiftClient.git", from: "1.5.1"),
@@ -254,11 +256,15 @@ let package = Package(
 		),
 		.target(
 			name: "ExtensionsLibrary",
-			dependencies: []
+			dependencies: [
+				.product(name: "AsyncAlgorithms", package: "swift-async-algorithms"),
+				.product(name: "ConcurrencyExtras", package: "swift-concurrency-extras"),
+			]
 		),
 		.testTarget(
 			name: "ExtensionsLibraryTests",
 			dependencies: [
+				.product(name: "Dependencies", package: "swift-dependencies"),
 				"ExtensionsLibrary",
 			]
 		),
