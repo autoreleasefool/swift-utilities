@@ -4,7 +4,8 @@ import SwiftUI
 import XCTest
 
 final class ConditionalViewModifierTests: XCTestCase {
-	func testConditionalViewModifierSnapshot() {
+	func testConditionalViewModifierSnapshot() throws {
+#if canImport(UIKit)
 		let conditionalView = Group {
 			Text("With Background")
 				.if(true) {
@@ -21,5 +22,9 @@ final class ConditionalViewModifierTests: XCTestCase {
 		vc.view.frame = UIScreen.main.bounds
 
 		assertSnapshot(matching: vc, as: .image(on: .iPhoneSe))
+#else
+		try XCTSkipIf(true)
+#endif
 	}
+
 }

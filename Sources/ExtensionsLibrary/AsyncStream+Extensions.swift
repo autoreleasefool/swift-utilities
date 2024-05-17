@@ -37,4 +37,3 @@ public func `prefix`<T>(
 		.map { Array($0.prefix(ofSize)) }
 		.eraseToThrowingStream()
 }
-

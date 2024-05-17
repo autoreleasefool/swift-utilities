@@ -80,7 +80,7 @@ final class AsyncStreamExtensionsTests: XCTestCase {
 
 		itemContinuation.yield([Item(id: UUID(0)), Item(id: UUID(1)), Item(id: UUID(2))])
 
-		var prefix = await iterator.next()
+		let prefix = await iterator.next()
 		XCTAssertEqual(
 			prefix,
 			[
@@ -98,7 +98,7 @@ final class AsyncStreamExtensionsTests: XCTestCase {
 
 		itemContinuation.yield([Item(id: UUID(0)), Item(id: UUID(1)), Item(id: UUID(2))])
 
-		var prefix = try await iterator.next()
+		let prefix = try await iterator.next()
 		XCTAssertEqual(
 			prefix,
 			[

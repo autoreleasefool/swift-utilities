@@ -1,3 +1,4 @@
+#if canImport(UIKit)
 import UIKit
 
 extension UIColor {
@@ -36,3 +37,4 @@ extension UIColor {
 		return intensity > 186 ? .black : .white
 	}
 }
+#endif
