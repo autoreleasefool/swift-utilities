@@ -7,11 +7,11 @@ final class FileManagerServiceTests: XCTestCase {
 	@Dependency(\.fileManager) private var fileManager
 
 	override func tearDownWithError() throws {
-		try? FileManager.default.removeItem(at: try getTempFolder())
+		try? FileManager.default.removeItem(at: try Self.getTempFolder())
 		try super.tearDownWithError()
 	}
 
-	private func getTempFolder() throws -> URL {
+	private static func getTempFolder() throws -> URL {
 		try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
 			.appendingPathComponent("approach-tmp")
 	}
@@ -21,8 +21,8 @@ final class FileManagerServiceTests: XCTestCase {
 	func test_getFileContents() throws {
 		let liveValue: FileManagerService = .liveValue
 		let originalContents = "file contents"
-		let filePath = try getTempFolder().appendingPathComponent("temp.txt")
-		try FileManager.default.createDirectory(at: try getTempFolder(), withIntermediateDirectories: true)
+		let filePath = try Self.getTempFolder().appendingPathComponent("temp.txt")
+		try FileManager.default.createDirectory(at: try Self.getTempFolder(), withIntermediateDirectories: true)
 		let originalData = Data(originalContents.utf8)
 		try originalData.write(to: filePath)
 
@@ -46,7 +46,7 @@ final class FileManagerServiceTests: XCTestCase {
 			try self.fileManager.getUserDirectory()
 		}
 
-		XCTAssertEqual(try getTempFolder(), userDirectory.appendingPathComponent("approach-tmp"))
+		XCTAssertEqual(try Self.getTempFolder(), userDirectory.appendingPathComponent("approach-tmp"))
 	}
 
 	// MARK: - exists
@@ -57,9 +57,9 @@ final class FileManagerServiceTests: XCTestCase {
 			$0.fileManager.exists = liveValue.exists
 			$0.fileManager.createDirectory = liveValue.createDirectory
 		} operation: {
-			XCTAssertFalse(try self.fileManager.exists(try getTempFolder()))
-			XCTAssertNoThrow(try fileManager.createDirectory(try getTempFolder()))
-			XCTAssertTrue(try fileManager.exists(try getTempFolder()))
+			XCTAssertFalse(try self.fileManager.exists(try Self.getTempFolder()))
+			XCTAssertNoThrow(try fileManager.createDirectory(try Self.getTempFolder()))
+			XCTAssertTrue(try fileManager.exists(try Self.getTempFolder()))
 		}
 	}
 
@@ -71,9 +71,9 @@ final class FileManagerServiceTests: XCTestCase {
 			$0.fileManager.exists = liveValue.exists
 			$0.fileManager.createDirectory = liveValue.createDirectory
 		} operation: {
-			XCTAssertFalse(try self.fileManager.exists(try getTempFolder()))
-			XCTAssertNoThrow(try fileManager.createDirectory(try getTempFolder()))
-			XCTAssertTrue(try fileManager.exists(try getTempFolder()))
+			XCTAssertFalse(try self.fileManager.exists(try Self.getTempFolder()))
+			XCTAssertNoThrow(try fileManager.createDirectory(try Self.getTempFolder()))
+			XCTAssertTrue(try fileManager.exists(try Self.getTempFolder()))
 		}
 	}
 
@@ -86,10 +86,10 @@ final class FileManagerServiceTests: XCTestCase {
 			$0.fileManager.createDirectory = liveValue.createDirectory
 			$0.fileManager.remove = liveValue.remove
 		} operation: {
-			XCTAssertNoThrow(try fileManager.createDirectory(try getTempFolder()))
-			XCTAssertTrue(try self.fileManager.exists(try getTempFolder()))
-			XCTAssertNoThrow(try fileManager.remove(try getTempFolder()))
-			XCTAssertFalse(try fileManager.exists(try getTempFolder()))
+			XCTAssertNoThrow(try fileManager.createDirectory(try Self.getTempFolder()))
+			XCTAssertTrue(try self.fileManager.exists(try Self.getTempFolder()))
+			XCTAssertNoThrow(try fileManager.remove(try Self.getTempFolder()))
+			XCTAssertFalse(try fileManager.exists(try Self.getTempFolder()))
 		}
 	}
 }
