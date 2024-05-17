@@ -29,6 +29,14 @@ skip_tests = true
 [services.Bundle.interface]
 dependencies = [ "Dependencies", "DependenciesMacros" ]
 
+[services.GRDBDatabase]
+services = [ "FileManager" ]
+[services.GRDBDatabase.interface]
+libraries = [ "GRDBDatabase" ]
+dependencies = [ "ConcurrencyExtras", "Dependencies", "DependenciesMacros" ]
+[services.GRDBDatabase.tests]
+libraries = [ "TestUtilities" ]
+
 [services.SentryErrorReporting]
 skip_interface = true
 skip_tests = true
@@ -60,6 +68,9 @@ dependencies = [ "Dependencies", "DependenciesMacros" ]
 
 # Libraries
 
+[libraries.GRDBDatabase]
+dependencies = [ "GRDB" ]
+
 [libraries.Equatable]
 
 [libraries.ErrorReportingClient]
@@ -76,6 +87,10 @@ dependencies = [ "Dependencies" ]
 [libraries.SwiftUIExtensions]
 [libraries.SwiftUIExtensions.tests]
 dependencies = [ "SnapshotTesting" ]
+
+[libraries.GRDBDatabaseTestUtilities]
+skip_tests = true
+dependencies = [ "GRDB" ]
 
 [libraries.TestUtilities]
 skip_tests = true
@@ -102,6 +117,10 @@ versionRef = "Dependencies"
 [dependencies.ConcurrencyExtras]
 url = "https://github.com/pointfreeco/swift-concurrency-extras.git"
 from = "1.1.0"
+
+[dependencies.GRDB]
+url = "https://github.com/groue/GRDB.swift.git"
+from = "6.25.0"
 
 [dependencies.Sentry]
 url = "https://github.com/getsentry/sentry-cocoa.git"

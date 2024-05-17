@@ -27,6 +27,8 @@ let package = Package(
 		.library(name: "FeatureFlagsServiceInterface", targets: ["FeatureFlagsServiceInterface"]),
 		.library(name: "FileManagerService", targets: ["FileManagerService"]),
 		.library(name: "FileManagerServiceInterface", targets: ["FileManagerServiceInterface"]),
+		.library(name: "GRDBDatabaseService", targets: ["GRDBDatabaseService"]),
+		.library(name: "GRDBDatabaseServiceInterface", targets: ["GRDBDatabaseServiceInterface"]),
 		.library(name: "PasteboardService", targets: ["PasteboardService"]),
 		.library(name: "PasteboardServiceInterface", targets: ["PasteboardServiceInterface"]),
 		.library(name: "SentryErrorReportingService", targets: ["SentryErrorReportingService"]),
@@ -41,12 +43,15 @@ let package = Package(
 		.library(name: "ErrorReportingClientLibrary", targets: ["ErrorReportingClientLibrary"]),
 		.library(name: "ExtensionsLibrary", targets: ["ExtensionsLibrary"]),
 		.library(name: "FeatureFlagsLibrary", targets: ["FeatureFlagsLibrary"]),
+		.library(name: "GRDBDatabaseLibrary", targets: ["GRDBDatabaseLibrary"]),
+		.library(name: "GRDBDatabaseTestUtilitiesLibrary", targets: ["GRDBDatabaseTestUtilitiesLibrary"]),
 		.library(name: "SwiftUIExtensionsLibrary", targets: ["SwiftUIExtensionsLibrary"]),
 		.library(name: "TestUtilitiesLibrary", targets: ["TestUtilitiesLibrary"]),
 	],
 	dependencies: [
 		.package(url: "https://github.com/apple/swift-async-algorithms.git", from: "1.0.0"),
 		.package(url: "https://github.com/getsentry/sentry-cocoa.git", from: "8.21.0"),
+		.package(url: "https://github.com/groue/GRDB.swift.git", from: "6.25.0"),
 		.package(url: "https://github.com/pointfreeco/swift-concurrency-extras.git", from: "1.1.0"),
 		.package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.2.2"),
 		.package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.16.0"),
@@ -152,6 +157,29 @@ let package = Package(
 			name: "FileManagerServiceTests",
 			dependencies: [
 				"FileManagerService",
+			]
+		),
+		.target(
+			name: "GRDBDatabaseService",
+			dependencies: [
+				"FileManagerServiceInterface",
+				"GRDBDatabaseServiceInterface",
+			]
+		),
+		.target(
+			name: "GRDBDatabaseServiceInterface",
+			dependencies: [
+				.product(name: "ConcurrencyExtras", package: "swift-concurrency-extras"),
+				.product(name: "Dependencies", package: "swift-dependencies"),
+				.product(name: "DependenciesMacros", package: "swift-dependencies"),
+				"GRDBDatabaseLibrary",
+			]
+		),
+		.testTarget(
+			name: "GRDBDatabaseServiceTests",
+			dependencies: [
+				"GRDBDatabaseService",
+				"TestUtilitiesLibrary",
 			]
 		),
 		.target(
@@ -276,6 +304,24 @@ let package = Package(
 			name: "FeatureFlagsLibraryTests",
 			dependencies: [
 				"FeatureFlagsLibrary",
+			]
+		),
+		.target(
+			name: "GRDBDatabaseLibrary",
+			dependencies: [
+				.product(name: "GRDB", package: "GRDB.swift"),
+			]
+		),
+		.testTarget(
+			name: "GRDBDatabaseLibraryTests",
+			dependencies: [
+				"GRDBDatabaseLibrary",
+			]
+		),
+		.target(
+			name: "GRDBDatabaseTestUtilitiesLibrary",
+			dependencies: [
+				.product(name: "GRDB", package: "GRDB.swift"),
 			]
 		),
 		.target(
