@@ -17,36 +17,36 @@ let package = Package(
 		// MARK: - Data Providers
 
 		// MARK: - Services
-		.library(name: "AnalyticsService", targets: ["AnalyticsService"]),
-		.library(name: "AnalyticsServiceInterface", targets: ["AnalyticsServiceInterface"]),
-		.library(name: "AppInfoService", targets: ["AppInfoService"]),
-		.library(name: "AppInfoServiceInterface", targets: ["AppInfoServiceInterface"]),
-		.library(name: "BundleService", targets: ["BundleService"]),
-		.library(name: "BundleServiceInterface", targets: ["BundleServiceInterface"]),
-		.library(name: "FeatureFlagsService", targets: ["FeatureFlagsService"]),
-		.library(name: "FeatureFlagsServiceInterface", targets: ["FeatureFlagsServiceInterface"]),
-		.library(name: "FileManagerService", targets: ["FileManagerService"]),
-		.library(name: "FileManagerServiceInterface", targets: ["FileManagerServiceInterface"]),
-		.library(name: "GRDBDatabaseService", targets: ["GRDBDatabaseService"]),
-		.library(name: "GRDBDatabaseServiceInterface", targets: ["GRDBDatabaseServiceInterface"]),
-		.library(name: "PasteboardService", targets: ["PasteboardService"]),
-		.library(name: "PasteboardServiceInterface", targets: ["PasteboardServiceInterface"]),
-		.library(name: "SentryErrorReportingService", targets: ["SentryErrorReportingService"]),
-		.library(name: "StoreReviewService", targets: ["StoreReviewService"]),
-		.library(name: "StoreReviewServiceInterface", targets: ["StoreReviewServiceInterface"]),
-		.library(name: "TelemetryDeckAnalyticsService", targets: ["TelemetryDeckAnalyticsService"]),
-		.library(name: "UserDefaultsService", targets: ["UserDefaultsService"]),
-		.library(name: "UserDefaultsServiceInterface", targets: ["UserDefaultsServiceInterface"]),
+		.library(name: "AnalyticsPackageService", targets: ["AnalyticsPackageService"]),
+		.library(name: "AnalyticsPackageServiceInterface", targets: ["AnalyticsPackageServiceInterface"]),
+		.library(name: "AppInfoPackageService", targets: ["AppInfoPackageService"]),
+		.library(name: "AppInfoPackageServiceInterface", targets: ["AppInfoPackageServiceInterface"]),
+		.library(name: "BundlePackageService", targets: ["BundlePackageService"]),
+		.library(name: "BundlePackageServiceInterface", targets: ["BundlePackageServiceInterface"]),
+		.library(name: "FeatureFlagsPackageService", targets: ["FeatureFlagsPackageService"]),
+		.library(name: "FeatureFlagsPackageServiceInterface", targets: ["FeatureFlagsPackageServiceInterface"]),
+		.library(name: "FileManagerPackageService", targets: ["FileManagerPackageService"]),
+		.library(name: "FileManagerPackageServiceInterface", targets: ["FileManagerPackageServiceInterface"]),
+		.library(name: "GRDBDatabasePackageService", targets: ["GRDBDatabasePackageService"]),
+		.library(name: "GRDBDatabasePackageServiceInterface", targets: ["GRDBDatabasePackageServiceInterface"]),
+		.library(name: "PasteboardPackageService", targets: ["PasteboardPackageService"]),
+		.library(name: "PasteboardPackageServiceInterface", targets: ["PasteboardPackageServiceInterface"]),
+		.library(name: "SentryErrorReportingPackageService", targets: ["SentryErrorReportingPackageService"]),
+		.library(name: "StoreReviewPackageService", targets: ["StoreReviewPackageService"]),
+		.library(name: "StoreReviewPackageServiceInterface", targets: ["StoreReviewPackageServiceInterface"]),
+		.library(name: "TelemetryDeckAnalyticsPackageService", targets: ["TelemetryDeckAnalyticsPackageService"]),
+		.library(name: "UserDefaultsPackageService", targets: ["UserDefaultsPackageService"]),
+		.library(name: "UserDefaultsPackageServiceInterface", targets: ["UserDefaultsPackageServiceInterface"]),
 
 		// MARK: - Libraries
-		.library(name: "EquatableLibrary", targets: ["EquatableLibrary"]),
-		.library(name: "ErrorReportingClientLibrary", targets: ["ErrorReportingClientLibrary"]),
-		.library(name: "ExtensionsLibrary", targets: ["ExtensionsLibrary"]),
-		.library(name: "FeatureFlagsLibrary", targets: ["FeatureFlagsLibrary"]),
-		.library(name: "GRDBDatabaseLibrary", targets: ["GRDBDatabaseLibrary"]),
-		.library(name: "GRDBDatabaseTestUtilitiesLibrary", targets: ["GRDBDatabaseTestUtilitiesLibrary"]),
-		.library(name: "SwiftUIExtensionsLibrary", targets: ["SwiftUIExtensionsLibrary"]),
-		.library(name: "TestUtilitiesLibrary", targets: ["TestUtilitiesLibrary"]),
+		.library(name: "EquatablePackageLibrary", targets: ["EquatablePackageLibrary"]),
+		.library(name: "ErrorReportingClientPackageLibrary", targets: ["ErrorReportingClientPackageLibrary"]),
+		.library(name: "ExtensionsPackageLibrary", targets: ["ExtensionsPackageLibrary"]),
+		.library(name: "FeatureFlagsPackageLibrary", targets: ["FeatureFlagsPackageLibrary"]),
+		.library(name: "GRDBDatabasePackageLibrary", targets: ["GRDBDatabasePackageLibrary"]),
+		.library(name: "GRDBDatabaseTestUtilitiesPackageLibrary", targets: ["GRDBDatabaseTestUtilitiesPackageLibrary"]),
+		.library(name: "SwiftUIExtensionsPackageLibrary", targets: ["SwiftUIExtensionsPackageLibrary"]),
+		.library(name: "TestUtilitiesPackageLibrary", targets: ["TestUtilitiesPackageLibrary"]),
 	],
 	dependencies: [
 		.package(url: "https://github.com/apple/swift-async-algorithms.git", from: "1.0.0"),
@@ -66,277 +66,277 @@ let package = Package(
 
 		// MARK: - Services
 		.target(
-			name: "AnalyticsService",
+			name: "AnalyticsPackageService",
 			dependencies: [
-				"AnalyticsServiceInterface",
+				"AnalyticsPackageServiceInterface",
 			]
 		),
 		.target(
-			name: "AnalyticsServiceInterface",
+			name: "AnalyticsPackageServiceInterface",
 			dependencies: [
 				.product(name: "Dependencies", package: "swift-dependencies"),
 				.product(name: "DependenciesMacros", package: "swift-dependencies"),
 			]
 		),
 		.testTarget(
-			name: "AnalyticsServiceTests",
+			name: "AnalyticsPackageServiceTests",
 			dependencies: [
-				"AnalyticsService",
+				"AnalyticsPackageService",
 			]
 		),
 		.target(
-			name: "AppInfoService",
+			name: "AppInfoPackageService",
 			dependencies: [
-				"AppInfoServiceInterface",
-				"BundleServiceInterface",
-				"UserDefaultsServiceInterface",
+				"AppInfoPackageServiceInterface",
+				"BundlePackageServiceInterface",
+				"UserDefaultsPackageServiceInterface",
 			]
 		),
 		.target(
-			name: "AppInfoServiceInterface",
+			name: "AppInfoPackageServiceInterface",
 			dependencies: [
 				.product(name: "Dependencies", package: "swift-dependencies"),
 				.product(name: "DependenciesMacros", package: "swift-dependencies"),
 			]
 		),
 		.testTarget(
-			name: "AppInfoServiceTests",
+			name: "AppInfoPackageServiceTests",
 			dependencies: [
-				"AppInfoService",
+				"AppInfoPackageService",
 			]
 		),
 		.target(
-			name: "BundleService",
+			name: "BundlePackageService",
 			dependencies: [
-				"BundleServiceInterface",
+				"BundlePackageServiceInterface",
 			]
 		),
 		.target(
-			name: "BundleServiceInterface",
+			name: "BundlePackageServiceInterface",
 			dependencies: [
 				.product(name: "Dependencies", package: "swift-dependencies"),
 				.product(name: "DependenciesMacros", package: "swift-dependencies"),
 			]
 		),
 		.target(
-			name: "FeatureFlagsService",
+			name: "FeatureFlagsPackageService",
 			dependencies: [
-				"BundleServiceInterface",
-				"FeatureFlagsServiceInterface",
-				"UserDefaultsServiceInterface",
+				"BundlePackageServiceInterface",
+				"FeatureFlagsPackageServiceInterface",
+				"UserDefaultsPackageServiceInterface",
 			]
 		),
 		.target(
-			name: "FeatureFlagsServiceInterface",
+			name: "FeatureFlagsPackageServiceInterface",
 			dependencies: [
 				.product(name: "Dependencies", package: "swift-dependencies"),
 				.product(name: "DependenciesMacros", package: "swift-dependencies"),
-				"FeatureFlagsLibrary",
+				"FeatureFlagsPackageLibrary",
 			]
 		),
 		.testTarget(
-			name: "FeatureFlagsServiceTests",
+			name: "FeatureFlagsPackageServiceTests",
 			dependencies: [
-				"FeatureFlagsService",
+				"FeatureFlagsPackageService",
 			]
 		),
 		.target(
-			name: "FileManagerService",
+			name: "FileManagerPackageService",
 			dependencies: [
-				"FileManagerServiceInterface",
+				"FileManagerPackageServiceInterface",
 			]
 		),
 		.target(
-			name: "FileManagerServiceInterface",
+			name: "FileManagerPackageServiceInterface",
 			dependencies: [
 				.product(name: "Dependencies", package: "swift-dependencies"),
 				.product(name: "DependenciesMacros", package: "swift-dependencies"),
 			]
 		),
 		.testTarget(
-			name: "FileManagerServiceTests",
+			name: "FileManagerPackageServiceTests",
 			dependencies: [
-				"FileManagerService",
+				"FileManagerPackageService",
 			]
 		),
 		.target(
-			name: "GRDBDatabaseService",
+			name: "GRDBDatabasePackageService",
 			dependencies: [
-				"FileManagerServiceInterface",
-				"GRDBDatabaseServiceInterface",
+				"FileManagerPackageServiceInterface",
+				"GRDBDatabasePackageServiceInterface",
 			]
 		),
 		.target(
-			name: "GRDBDatabaseServiceInterface",
+			name: "GRDBDatabasePackageServiceInterface",
 			dependencies: [
 				.product(name: "ConcurrencyExtras", package: "swift-concurrency-extras"),
 				.product(name: "Dependencies", package: "swift-dependencies"),
 				.product(name: "DependenciesMacros", package: "swift-dependencies"),
-				"GRDBDatabaseLibrary",
+				"GRDBDatabasePackageLibrary",
 			]
 		),
 		.testTarget(
-			name: "GRDBDatabaseServiceTests",
+			name: "GRDBDatabasePackageServiceTests",
 			dependencies: [
-				"GRDBDatabaseService",
-				"TestUtilitiesLibrary",
+				"GRDBDatabasePackageService",
+				"TestUtilitiesPackageLibrary",
 			]
 		),
 		.target(
-			name: "PasteboardService",
+			name: "PasteboardPackageService",
 			dependencies: [
-				"PasteboardServiceInterface",
+				"PasteboardPackageServiceInterface",
 			]
 		),
 		.target(
-			name: "PasteboardServiceInterface",
+			name: "PasteboardPackageServiceInterface",
 			dependencies: [
 				.product(name: "Dependencies", package: "swift-dependencies"),
 				.product(name: "DependenciesMacros", package: "swift-dependencies"),
 			]
 		),
 		.testTarget(
-			name: "PasteboardServiceTests",
+			name: "PasteboardPackageServiceTests",
 			dependencies: [
-				"PasteboardService",
+				"PasteboardPackageService",
 			]
 		),
 		.target(
-			name: "SentryErrorReportingService",
+			name: "SentryErrorReportingPackageService",
 			dependencies: [
 				.product(name: "Sentry", package: "sentry-cocoa"),
-				"ErrorReportingClientLibrary",
+				"ErrorReportingClientPackageLibrary",
 			]
 		),
 		.target(
-			name: "StoreReviewService",
+			name: "StoreReviewPackageService",
 			dependencies: [
-				"AppInfoServiceInterface",
-				"StoreReviewServiceInterface",
-				"UserDefaultsServiceInterface",
+				"AppInfoPackageServiceInterface",
+				"StoreReviewPackageServiceInterface",
+				"UserDefaultsPackageServiceInterface",
 			]
 		),
 		.target(
-			name: "StoreReviewServiceInterface",
+			name: "StoreReviewPackageServiceInterface",
 			dependencies: [
 				.product(name: "Dependencies", package: "swift-dependencies"),
 				.product(name: "DependenciesMacros", package: "swift-dependencies"),
 			]
 		),
 		.testTarget(
-			name: "StoreReviewServiceTests",
+			name: "StoreReviewPackageServiceTests",
 			dependencies: [
-				"StoreReviewService",
+				"StoreReviewPackageService",
 			]
 		),
 		.target(
-			name: "TelemetryDeckAnalyticsService",
+			name: "TelemetryDeckAnalyticsPackageService",
 			dependencies: [
 				.product(name: "TelemetryClient", package: "SwiftClient"),
-				"AnalyticsServiceInterface",
-				"BundleServiceInterface",
-				"UserDefaultsServiceInterface",
+				"AnalyticsPackageServiceInterface",
+				"BundlePackageServiceInterface",
+				"UserDefaultsPackageServiceInterface",
 			]
 		),
 		.testTarget(
-			name: "TelemetryDeckAnalyticsServiceTests",
+			name: "TelemetryDeckAnalyticsPackageServiceTests",
 			dependencies: [
-				"TelemetryDeckAnalyticsService",
+				"TelemetryDeckAnalyticsPackageService",
 			]
 		),
 		.target(
-			name: "UserDefaultsService",
+			name: "UserDefaultsPackageService",
 			dependencies: [
-				"UserDefaultsServiceInterface",
+				"UserDefaultsPackageServiceInterface",
 			]
 		),
 		.target(
-			name: "UserDefaultsServiceInterface",
+			name: "UserDefaultsPackageServiceInterface",
 			dependencies: [
 				.product(name: "Dependencies", package: "swift-dependencies"),
 				.product(name: "DependenciesMacros", package: "swift-dependencies"),
 			]
 		),
 		.testTarget(
-			name: "UserDefaultsServiceTests",
+			name: "UserDefaultsPackageServiceTests",
 			dependencies: [
-				"UserDefaultsService",
+				"UserDefaultsPackageService",
 			]
 		),
 
 		// MARK: - Libraries
 		.target(
-			name: "EquatableLibrary",
+			name: "EquatablePackageLibrary",
 			dependencies: []
 		),
 		.testTarget(
-			name: "EquatableLibraryTests",
+			name: "EquatablePackageLibraryTests",
 			dependencies: [
-				"EquatableLibrary",
+				"EquatablePackageLibrary",
 			]
 		),
 		.target(
-			name: "ErrorReportingClientLibrary",
+			name: "ErrorReportingClientPackageLibrary",
 			dependencies: [
 				.product(name: "Dependencies", package: "swift-dependencies"),
 				.product(name: "DependenciesMacros", package: "swift-dependencies"),
 			]
 		),
 		.target(
-			name: "ExtensionsLibrary",
+			name: "ExtensionsPackageLibrary",
 			dependencies: [
 				.product(name: "AsyncAlgorithms", package: "swift-async-algorithms"),
 				.product(name: "ConcurrencyExtras", package: "swift-concurrency-extras"),
 			]
 		),
 		.testTarget(
-			name: "ExtensionsLibraryTests",
+			name: "ExtensionsPackageLibraryTests",
 			dependencies: [
 				.product(name: "Dependencies", package: "swift-dependencies"),
-				"ExtensionsLibrary",
+				"ExtensionsPackageLibrary",
 			]
 		),
 		.target(
-			name: "FeatureFlagsLibrary",
+			name: "FeatureFlagsPackageLibrary",
 			dependencies: []
 		),
 		.testTarget(
-			name: "FeatureFlagsLibraryTests",
+			name: "FeatureFlagsPackageLibraryTests",
 			dependencies: [
-				"FeatureFlagsLibrary",
+				"FeatureFlagsPackageLibrary",
 			]
 		),
 		.target(
-			name: "GRDBDatabaseLibrary",
+			name: "GRDBDatabasePackageLibrary",
 			dependencies: [
 				.product(name: "GRDB", package: "GRDB.swift"),
 			]
 		),
 		.testTarget(
-			name: "GRDBDatabaseLibraryTests",
+			name: "GRDBDatabasePackageLibraryTests",
 			dependencies: [
-				"GRDBDatabaseLibrary",
+				"GRDBDatabasePackageLibrary",
 			]
 		),
 		.target(
-			name: "GRDBDatabaseTestUtilitiesLibrary",
+			name: "GRDBDatabaseTestUtilitiesPackageLibrary",
 			dependencies: [
-				.product(name: "GRDB", package: "GRDB.swift"),
+				"GRDBDatabasePackageLibrary",
 			]
 		),
 		.target(
-			name: "SwiftUIExtensionsLibrary",
+			name: "SwiftUIExtensionsPackageLibrary",
 			dependencies: []
 		),
 		.testTarget(
-			name: "SwiftUIExtensionsLibraryTests",
+			name: "SwiftUIExtensionsPackageLibraryTests",
 			dependencies: [
 				.product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
-				"SwiftUIExtensionsLibrary",
+				"SwiftUIExtensionsPackageLibrary",
 			]
 		),
 		.target(
-			name: "TestUtilitiesLibrary",
+			name: "TestUtilitiesPackageLibrary",
 			dependencies: []
 		),
 	]

@@ -12,92 +12,93 @@ supported = [ "\"14.0\"" ]
 
 # Services
 
-[services.Analytics.interface]
+[services.AnalyticsPackage.interface]
 dependencies = [ "Dependencies", "DependenciesMacros" ]
-[services.TelemetryDeckAnalytics]
+[services.TelemetryDeckAnalyticsPackage]
 skip_interface = true
-services = [ "Analytics", "Bundle", "UserDefaults" ]
+services = [ "AnalyticsPackage", "BundlePackage", "UserDefaultsPackage" ]
 dependencies = [ "TelemetryClient" ]
 
-[services.AppInfo]
-services = [ "Bundle", "UserDefaults" ]
-[services.AppInfo.interface]
+[services.AppInfoPackage]
+services = [ "BundlePackage", "UserDefaultsPackage" ]
+[services.AppInfoPackage.interface]
 dependencies = [ "Dependencies", "DependenciesMacros" ]
 
-[services.Bundle]
+[services.BundlePackage]
 skip_tests = true
-[services.Bundle.interface]
+[services.BundlePackage.interface]
 dependencies = [ "Dependencies", "DependenciesMacros" ]
 
-[services.GRDBDatabase]
-services = [ "FileManager" ]
-[services.GRDBDatabase.interface]
-libraries = [ "GRDBDatabase" ]
+[services.GRDBDatabasePackage]
+services = [ "FileManagerPackage" ]
+[services.GRDBDatabasePackage.interface]
+libraries = [ "GRDBDatabasePackage" ]
 dependencies = [ "ConcurrencyExtras", "Dependencies", "DependenciesMacros" ]
-[services.GRDBDatabase.tests]
-libraries = [ "TestUtilities" ]
+[services.GRDBDatabasePackage.tests]
+libraries = [ "TestUtilitiesPackage" ]
 
-[services.SentryErrorReporting]
+[services.SentryErrorReportingPackage]
 skip_interface = true
 skip_tests = true
-libraries = [ "ErrorReportingClient" ]
+libraries = [ "ErrorReportingClientPackage" ]
 dependencies = [ "Sentry" ]
 
-[services.FeatureFlags]
-services = [ "Bundle", "UserDefaults" ]
-[services.FeatureFlags.interface]
-libraries = [ "FeatureFlags" ]
+[services.FeatureFlagsPackage]
+services = [ "BundlePackage", "UserDefaultsPackage" ]
+[services.FeatureFlagsPackage.interface]
+libraries = [ "FeatureFlagsPackage" ]
 dependencies = [ "Dependencies", "DependenciesMacros" ]
 
-[services.FileManager]
-[services.FileManager.interface]
+[services.FileManagerPackage]
+[services.FileManagerPackage.interface]
 dependencies = [ "Dependencies", "DependenciesMacros" ]
 
-[services.Pasteboard]
-[services.Pasteboard.interface]
+[services.PasteboardPackage]
+[services.PasteboardPackage.interface]
 dependencies = [ "Dependencies", "DependenciesMacros" ]
 
-[services.StoreReview]
-services = [ "AppInfo", "UserDefaults" ]
-[services.StoreReview.interface]
+[services.StoreReviewPackage]
+services = [ "AppInfoPackage", "UserDefaultsPackage" ]
+[services.StoreReviewPackage.interface]
 dependencies = [ "Dependencies", "DependenciesMacros" ]
 
-[services.UserDefaults]
-[services.UserDefaults.interface]
+[services.UserDefaultsPackage]
+[services.UserDefaultsPackage.interface]
 dependencies = [ "Dependencies", "DependenciesMacros" ]
 
 # Libraries
 
-[libraries.GRDBDatabase]
+[libraries.GRDBDatabasePackage]
 dependencies = [ "GRDB" ]
 
-[libraries.Equatable]
+[libraries.EquatablePackage]
 
-[libraries.ErrorReportingClient]
+[libraries.ErrorReportingClientPackage]
 skip_tests = true
 dependencies = [ "Dependencies", "DependenciesMacros" ]
 
-[libraries.Extensions]
+[libraries.ExtensionsPackage]
 dependencies = [ "AsyncAlgorithms", "ConcurrencyExtras" ]
-[libraries.Extensions.tests]
+[libraries.ExtensionsPackage.tests]
 dependencies = [ "Dependencies" ]
 
-[libraries.FeatureFlags]
+[libraries.FeatureFlagsPackage]
 
-[libraries.SwiftUIExtensions]
-[libraries.SwiftUIExtensions.tests]
+[libraries.SwiftUIExtensionsPackage]
+[libraries.SwiftUIExtensionsPackage.tests]
 dependencies = [ "SnapshotTesting" ]
 
-[libraries.GRDBDatabaseTestUtilities]
+[libraries.GRDBDatabaseTestUtilitiesPackage]
 skip_tests = true
-dependencies = [ "GRDB" ]
+libraries = [ "GRDBDatabasePackage" ]
 
-[libraries.TestUtilities]
+[libraries.TestUtilitiesPackage]
 skip_tests = true
 
 # Dependency Versions
 
-[versionRefs.Dependencies]
+[sharedRefs.Dependencies]
+url = "https://github.com/pointfreeco/swift-dependencies.git"
 from = "1.2.2"
 
 # Dependencies
@@ -107,12 +108,10 @@ url = "https://github.com/apple/swift-async-algorithms.git"
 from = "1.0.0"
 
 [dependencies.Dependencies]
-url = "https://github.com/pointfreeco/swift-dependencies.git"
-versionRef = "Dependencies"
+sharedRef = "Dependencies"
 
 [dependencies.DependenciesMacros]
-url = "https://github.com/pointfreeco/swift-dependencies.git"
-versionRef = "Dependencies"
+sharedRef = "Dependencies"
 
 [dependencies.ConcurrencyExtras]
 url = "https://github.com/pointfreeco/swift-concurrency-extras.git"
