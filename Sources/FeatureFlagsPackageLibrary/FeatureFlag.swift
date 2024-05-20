@@ -6,7 +6,7 @@ public struct FeatureFlag: Identifiable, Hashable {
 
 	public var id: String { name }
 
-	init(name: String, introduced: String, stage: RolloutStage, isOverridable: Bool = true) {
+	public init(name: String, introduced: String, stage: RolloutStage, isOverridable: Bool = true) {
 		self.name = name
 		self.introduced = introduced
 		self.stage = stage
