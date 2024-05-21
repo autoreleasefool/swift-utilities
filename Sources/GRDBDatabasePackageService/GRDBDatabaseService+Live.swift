@@ -47,8 +47,8 @@ extension GRDBDatabaseService: DependencyKey {
 					fatalError("Unable to access database: \(error)")
 				}
 			},
-			reader: { try writer.value.get() },
-			writer: { try writer.value.get() }
+			reader: { writer.value! },
+			writer: { writer.value! }
 		)
 	}
 }
@@ -56,15 +56,5 @@ extension GRDBDatabaseService: DependencyKey {
 extension GRDBDatabaseService {
 	public enum ServiceError: Swift.Error {
 		case notInitialized
-	}
-}
-
-private extension Optional {
-	func get() throws -> Wrapped {
-		guard let self else {
-			throw GRDBDatabaseService.ServiceError.notInitialized
-		}
-
-		return self
 	}
 }
