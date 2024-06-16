@@ -1,4 +1,5 @@
 import BundlePackageServiceInterface
+import Dependencies
 import FeatureFlagsPackageLibrary
 import Foundation
 
