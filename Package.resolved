@@ -19,6 +19,15 @@
       }
     },
     {
+      "identity" : "harmony",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/autoreleasefool/Harmony.git",
+      "state" : {
+        "branch" : "jroque-9-string-id",
+        "revision" : "0e572fdf3c8fd91e6ea930367b420232cce6497f"
+      }
+    },
+    {
       "identity" : "sentry-cocoa",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/getsentry/sentry-cocoa.git",

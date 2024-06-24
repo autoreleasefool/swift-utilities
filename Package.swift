@@ -50,6 +50,7 @@ let package = Package(
 	],
 	dependencies: [
 		.package(url: "https://github.com/apple/swift-async-algorithms.git", from: "1.0.0"),
+		.package(url: "https://github.com/autoreleasefool/Harmony.git", branch: "jroque-9-string-id"),
 		.package(url: "https://github.com/getsentry/sentry-cocoa.git", from: "8.21.0"),
 		.package(url: "https://github.com/groue/GRDB.swift.git", from: "6.25.0"),
 		.package(url: "https://github.com/pointfreeco/swift-concurrency-extras.git", from: "1.1.0"),
@@ -172,6 +173,7 @@ let package = Package(
 				.product(name: "ConcurrencyExtras", package: "swift-concurrency-extras"),
 				.product(name: "Dependencies", package: "swift-dependencies"),
 				.product(name: "DependenciesMacros", package: "swift-dependencies"),
+				.product(name: "Harmony", package: "Harmony"),
 				"GRDBDatabasePackageLibrary",
 			]
 		),

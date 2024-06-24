@@ -1,4 +1,5 @@
 import Dependencies
+import DependenciesMacros
 import FileManagerPackageServiceInterface
 import Foundation
 import GRDB
@@ -9,6 +10,44 @@ extension GRDBDatabaseService: DependencyKey {
 	public static var liveValue: Self {
 		let writer = LockIsolated<(any DatabaseWriter)?>(nil)
 
+		return Self(
+			initialize: { migrations, eraseDatabaseOnSchemaChange in
+				@Dependency(GRDBInternalDatabaseService.self) var grdbInternal
+				let value = try grdbInternal.initialize(
+					migrations: migrations,
+					eraseDatabaseOnSchemaChange: eraseDatabaseOnSchemaChange
+				)
+
+				writer.setValue(value.database)
+			},
+			reader: { writer.value! },
+			writer: { writer.value! }
+		)
+	}
+}
+
+extension GRDBDatabaseService {
+	public enum ServiceError: Swift.Error {
+		case notInitialized
+	}
+}
+
+// MARK: - Internal
+
+@DependencyClient
+struct GRDBInternalDatabaseService: Sendable {
+	var initialize: @Sendable (
+		_ migrations: [Migration.Type],
+		_ eraseDatabaseOnSchemaChange: Bool
+	) throws -> GRDBInternalValue
+}
+
+extension GRDBInternalDatabaseService: TestDependencyKey {
+	static var testValue = Self()
+}
+
+extension GRDBInternalDatabaseService: DependencyKey {
+	public static var liveValue: GRDBInternalDatabaseService {
 		return Self(
 			initialize: { migrations, eraseDatabaseOnSchemaChange in
 				@Dependency(\.fileManager) var fileManager
@@ -41,20 +80,29 @@ extension GRDBDatabaseService: DependencyKey {
 					}
 
 					try migrator.migrate(dbPool)
-					writer.setValue(dbPool)
+
+					return GRDBInternalValue(
+						databasePath: dbUrl,
+						migrator: migrator,
+						database: dbPool
+					)
 				} catch {
 					// FIXME: should notify user of failure to open DB
 					fatalError("Unable to access database: \(error)")
 				}
-			},
-			reader: { writer.value! },
-			writer: { writer.value! }
+			}
 		)
 	}
 }
 
-extension GRDBDatabaseService {
-	public enum ServiceError: Swift.Error {
-		case notInitialized
+struct GRDBInternalValue {
+	let databasePath: URL
+	let migrator: DatabaseMigrator
+	let database: DatabaseWriter
+
+	init(databasePath: URL, migrator: DatabaseMigrator, database: DatabaseWriter) {
+		self.databasePath = databasePath
+		self.migrator = migrator
+		self.database = database
 	}
 }
