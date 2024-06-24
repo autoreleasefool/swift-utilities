@@ -5,6 +5,7 @@ import GRDBDatabasePackageLibrary
 import Harmony
 
 public protocol HarmonicDatabaseReader {
+	var reader: DatabaseReader { get }
 	func read<T>(_ block: (Database) throws -> T) throws -> T
 	func read<T>(_ block: @Sendable @escaping (Database) throws -> T) async throws -> T
 }
