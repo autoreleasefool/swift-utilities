@@ -3,7 +3,7 @@ import BundlePackageServiceInterface
 import Dependencies
 import DependenciesMacros
 import Foundation
-import TelemetryClient
+import TelemetryDeck
 import UserDefaultsPackageServiceInterface
 
 extension AnalyticsService: DependencyKey {
@@ -24,7 +24,7 @@ extension AnalyticsService: DependencyKey {
 				bundle.object(forInfoDictionaryKey: "TELEMETRY_DECK_API_KEY") as? String ?? ""
 			}()
 
-			let configuration = TelemetryManagerConfiguration(appID: telemetryDeckApiKey)
+			let configuration = TelemetryDeck.Configuration(appID: telemetryDeckApiKey)
 			if telemetryDeckApiKey.isEmpty {
 				print("Analytics disabled")
 				configuration.analyticsDisabled = true
@@ -83,8 +83,8 @@ extension TelemetryDeckClient: DependencyKey {
 
 	static func live() -> Self {
 		Self(
-			initialize: { configuration in TelemetryManager.initialize(with: configuration) },
-			send: { name, payload in TelemetryManager.send(name, with: payload) },
+			initialize: { configuration in TelemetryDeck.initialize(config: configuration) },
+			send: { name, payload in TelemetryDeck.signal(name, parameters: payload) },
 			terminate: { TelemetryManager.terminate() }
 		)
 	}

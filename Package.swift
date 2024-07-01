@@ -55,7 +55,7 @@ let package = Package(
 		.package(url: "https://github.com/pointfreeco/swift-concurrency-extras.git", from: "1.1.0"),
 		.package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.2.2"),
 		.package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.16.0"),
-		.package(url: "https://github.com/TelemetryDeck/SwiftClient.git", from: "1.5.1"),
+		.package(url: "https://github.com/TelemetryDeck/SwiftSDK.git", from: "2.2.1"),
 	],
 	targets: [
 		// MARK: - Features
@@ -232,7 +232,7 @@ let package = Package(
 		.target(
 			name: "TelemetryDeckAnalyticsPackageService",
 			dependencies: [
-				.product(name: "TelemetryClient", package: "SwiftClient"),
+				.product(name: "TelemetryDeck", package: "SwiftSDK"),
 				"AnalyticsPackageServiceInterface",
 				"BundlePackageServiceInterface",
 				"UserDefaultsPackageServiceInterface",
