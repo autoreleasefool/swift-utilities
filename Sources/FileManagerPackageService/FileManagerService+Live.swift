@@ -21,6 +21,18 @@ extension FileManagerService: DependencyKey {
 				try FileManager.default
 					.createDirectory(at: url, withIntermediateDirectories: true)
 			},
+			contentsOfDirectory: { url in
+				try FileManager.default
+					.contentsOfDirectory(at: url, includingPropertiesForKeys: [], options: [])
+			},
+			copyItem: { at, to in
+				try FileManager.default
+					.copyItem(at: at, to: to)
+			},
+			moveItem: { at, to in
+				try FileManager.default
+					.moveItem(at: at, to: to)
+			},
 			remove: { url in
 				try FileManager.default
 					.removeItem(at: url)

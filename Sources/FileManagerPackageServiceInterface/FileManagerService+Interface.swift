@@ -8,6 +8,9 @@ public struct FileManagerService {
 	public var getUserDirectory: @Sendable () throws -> URL
 	public var getTemporaryDirectory: @Sendable () throws -> URL
 	public var createDirectory: @Sendable (URL) throws -> Void
+	public var contentsOfDirectory: @Sendable (_ at: URL) throws -> [URL]
+	public var copyItem: @Sendable (_ at: URL, _ to: URL) throws -> Void
+	public var moveItem: @Sendable (_ at: URL, _ to: URL) throws -> Void
 	public var remove: @Sendable (URL) throws -> Void
 	public var exists: @Sendable (URL) throws -> Bool
 }

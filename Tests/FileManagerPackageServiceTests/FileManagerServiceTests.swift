@@ -29,7 +29,7 @@ final class FileManagerServiceTests: XCTestCase {
 		let readData = try withDependencies {
 			$0.fileManager.getFileContents = liveValue.getFileContents
 		} operation: {
-			try self.fileManager.getFileContents(filePath)
+			try fileManager.getFileContents(filePath)
 		}
 
 		let readContents = String(data: readData, encoding: .utf8)
@@ -43,7 +43,7 @@ final class FileManagerServiceTests: XCTestCase {
 		let userDirectory = try withDependencies {
 			$0.fileManager.getUserDirectory = liveValue.getUserDirectory
 		} operation: {
-			try self.fileManager.getUserDirectory()
+			try fileManager.getUserDirectory()
 		}
 
 		XCTAssertEqual(try Self.getTempFolder(), userDirectory.appendingPathComponent("approach-tmp"))
@@ -55,10 +55,11 @@ final class FileManagerServiceTests: XCTestCase {
 		let liveValue: FileManagerService = .liveValue
 		try withDependencies {
 			$0.fileManager.exists = liveValue.exists
-			$0.fileManager.createDirectory = liveValue.createDirectory
 		} operation: {
-			XCTAssertFalse(try self.fileManager.exists(try Self.getTempFolder()))
-			XCTAssertNoThrow(try fileManager.createDirectory(try Self.getTempFolder()))
+			XCTAssertFalse(try fileManager.exists(try Self.getTempFolder()))
+			XCTAssertNoThrow(
+				try FileManager.default.createDirectory(at: try Self.getTempFolder(), withIntermediateDirectories: true)
+			)
 			XCTAssertTrue(try fileManager.exists(try Self.getTempFolder()))
 		}
 	}
@@ -68,13 +69,99 @@ final class FileManagerServiceTests: XCTestCase {
 	func test_createDirectory() throws {
 		let liveValue: FileManagerService = .liveValue
 		try withDependencies {
-			$0.fileManager.exists = liveValue.exists
 			$0.fileManager.createDirectory = liveValue.createDirectory
 		} operation: {
-			XCTAssertFalse(try self.fileManager.exists(try Self.getTempFolder()))
+			XCTAssertFalse(FileManager.default.fileExists(atPath: try Self.getTempFolder().path()))
 			XCTAssertNoThrow(try fileManager.createDirectory(try Self.getTempFolder()))
-			XCTAssertTrue(try fileManager.exists(try Self.getTempFolder()))
+			XCTAssertTrue(FileManager.default.fileExists(atPath: try Self.getTempFolder().path()))
 		}
+	}
+
+	// MARK: - contentsOfDirectory
+
+	func test_contentsOfDirectory_emptyDirectory() throws {
+		let liveValue: FileManagerService = .liveValue
+
+		try FileManager.default.createDirectory(at: try Self.getTempFolder(), withIntermediateDirectories: true)
+
+		let contents = try withDependencies {
+			$0.fileManager.contentsOfDirectory = liveValue.contentsOfDirectory
+		} operation: {
+			try fileManager.contentsOfDirectory(at: Self.getTempFolder())
+		}
+
+		XCTAssertEqual(contents, [])
+	}
+
+	func test_contentsOfDirectory_withContents() throws {
+		let liveValue: FileManagerService = .liveValue
+
+		try FileManager.default.createDirectory(at: try Self.getTempFolder(), withIntermediateDirectories: true)
+
+		let filePaths = try (0..<10).map { try Self.getTempFolder().appendingPathComponent("temp\($0).txt") }
+		let originalContents = "file contents"
+		let originalData = Data(originalContents.utf8)
+		try filePaths.forEach { try originalData.write(to: $0) }
+
+		let contents = try withDependencies {
+			$0.fileManager.contentsOfDirectory = liveValue.contentsOfDirectory
+		} operation: {
+			try fileManager
+				.contentsOfDirectory(at: Self.getTempFolder())
+				.sorted(by: { $0.absoluteString < $1.absoluteString })
+		}
+
+		XCTAssertEqual(filePaths, contents)
+	}
+
+	// MARK: - copyItem
+
+	func test_copyItem() throws {
+		let liveValue: FileManagerService = .liveValue
+		let originalContents = "file contents"
+		let originalFilePath = try Self.getTempFolder().appendingPathComponent("temp.txt")
+		let copiedFilePath = try Self.getTempFolder().appendingPathComponent("copy.txt")
+		try FileManager.default.createDirectory(at: try Self.getTempFolder(), withIntermediateDirectories: true)
+		let originalData = Data(originalContents.utf8)
+		try originalData.write(to: originalFilePath)
+
+		try withDependencies {
+			$0.fileManager.copyItem = liveValue.copyItem
+		} operation: {
+			try fileManager.copyItem(at: originalFilePath, to: copiedFilePath)
+		}
+
+		XCTAssertTrue(FileManager.default.fileExists(atPath: originalFilePath.path()))
+		XCTAssertTrue(FileManager.default.fileExists(atPath: copiedFilePath.path()))
+
+		let readData = try XCTUnwrap(Data(contentsOf: copiedFilePath))
+		let copiedContents = try XCTUnwrap(String(data: readData, encoding: .utf8))
+		XCTAssertEqual(originalContents, copiedContents)
+	}
+
+	// MARK: - moveItem
+
+	func test_moveItem() throws {
+		let liveValue: FileManagerService = .liveValue
+		let originalContents = "file contents"
+		let originalFilePath = try Self.getTempFolder().appendingPathComponent("temp.txt")
+		let movedFilePath = try Self.getTempFolder().appendingPathComponent("moved.txt")
+		try FileManager.default.createDirectory(at: try Self.getTempFolder(), withIntermediateDirectories: true)
+		let originalData = Data(originalContents.utf8)
+		try originalData.write(to: originalFilePath)
+
+		try withDependencies {
+			$0.fileManager.moveItem = liveValue.moveItem
+		} operation: {
+			try fileManager.moveItem(at: originalFilePath, to: movedFilePath)
+		}
+
+		XCTAssertFalse(FileManager.default.fileExists(atPath: originalFilePath.path()))
+		XCTAssertTrue(FileManager.default.fileExists(atPath: movedFilePath.path()))
+
+		let readData = try XCTUnwrap(Data(contentsOf: movedFilePath))
+		let movedContents = try XCTUnwrap(String(data: readData, encoding: .utf8))
+		XCTAssertEqual(originalContents, movedContents)
 	}
 
 	// MARK: - remove
@@ -82,14 +169,14 @@ final class FileManagerServiceTests: XCTestCase {
 	func test_remove() throws {
 		let liveValue: FileManagerService = .liveValue
 		try withDependencies {
-			$0.fileManager.exists = liveValue.exists
-			$0.fileManager.createDirectory = liveValue.createDirectory
 			$0.fileManager.remove = liveValue.remove
 		} operation: {
-			XCTAssertNoThrow(try fileManager.createDirectory(try Self.getTempFolder()))
-			XCTAssertTrue(try self.fileManager.exists(try Self.getTempFolder()))
+			XCTAssertNoThrow(
+				try FileManager.default.createDirectory(at: try Self.getTempFolder(), withIntermediateDirectories: true)
+			)
+			XCTAssertTrue(FileManager.default.fileExists(atPath: try Self.getTempFolder().path()))
 			XCTAssertNoThrow(try fileManager.remove(try Self.getTempFolder()))
-			XCTAssertFalse(try fileManager.exists(try Self.getTempFolder()))
+			XCTAssertFalse(FileManager.default.fileExists(atPath: try Self.getTempFolder().path()))
 		}
 	}
 }
