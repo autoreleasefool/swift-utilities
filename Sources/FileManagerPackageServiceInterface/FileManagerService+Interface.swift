@@ -3,7 +3,7 @@ import DependenciesMacros
 import Foundation
 
 @DependencyClient
-public struct FileManagerService {
+public struct FileManagerService: Sendable {
 	public var getFileContents: @Sendable (URL) throws -> Data
 	public var getUserDirectory: @Sendable () throws -> URL
 	public var getTemporaryDirectory: @Sendable () throws -> URL
