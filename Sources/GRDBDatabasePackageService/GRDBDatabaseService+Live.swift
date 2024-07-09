@@ -10,22 +10,25 @@ extension GRDBDatabaseService: DependencyKey {
 		let writer = LockIsolated<(any DatabaseWriter)?>(nil)
 
 		return Self(
-			initialize: { migrations, eraseDatabaseOnSchemaChange in
+			initialize: { suppliedDbUrl, migrations, eraseDatabaseOnSchemaChange in
 				@Dependency(\.fileManager) var fileManager
 
 				let dbUrl: URL
+				if let suppliedDbUrl {
+					dbUrl = suppliedDbUrl
+				} else {
+					do {
+						let folderUrl = try fileManager
+							.getUserDirectory()
+							.appending(path: "database", directoryHint: .isDirectory)
 
-				do {
-					let folderUrl = try fileManager
-						.getUserDirectory()
-						.appending(path: "database", directoryHint: .isDirectory)
+						try fileManager.createDirectory(folderUrl)
 
-					try fileManager.createDirectory(folderUrl)
-
-					dbUrl = folderUrl.appending(path: "db.sqlite")
-				} catch {
-					// FIXME: should notify user of failure to open DB
-					fatalError("Unable to access database path: \(error)")
+						dbUrl = folderUrl.appending(path: "db.sqlite")
+					} catch {
+						// FIXME: should notify user of failure to open DB
+						fatalError("Unable to access database path: \(error)")
+					}
 				}
 
 				do {
@@ -45,6 +48,12 @@ extension GRDBDatabaseService: DependencyKey {
 				} catch {
 					// FIXME: should notify user of failure to open DB
 					fatalError("Unable to access database: \(error)")
+				}
+			},
+			close: {
+				try writer.withValue {
+					try $0?.close()
+					$0 = nil
 				}
 			},
 			reader: { writer.value! },
