@@ -13,8 +13,10 @@ final class PasteboardServiceTests: XCTestCase {
 	@Dependency(\.pasteboard) var pasteboard
 
 	func test_copyToClipboard_copiesString() async throws {
-		#if canImport(UIKit)
+		#if os(iOS)
 		try XCTSkipIf(true, "Skipped because pasting on iOS requires manual intervention")
+		#elseif os(watchOS)
+		try XCTSkipIf(true, "Paste on watchOS does not exist")
 		#endif
 
 		let liveValue: PasteboardService = .liveValue
@@ -28,7 +30,7 @@ final class PasteboardServiceTests: XCTestCase {
 
 		#if canImport(AppKit)
 		XCTAssertEqual(NSPasteboard.general.string(forType: .string), stringToCopy)
-		#elseif canImport(UIKit)
+		#elseif canImport(UIKit) && os(iOS)
 		XCTAssertEqual(UIPasteboard.general.string, stringToCopy)
 		#endif
 	}

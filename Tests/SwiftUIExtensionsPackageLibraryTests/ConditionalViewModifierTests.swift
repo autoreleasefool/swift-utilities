@@ -5,7 +5,7 @@ import XCTest
 
 final class ConditionalViewModifierTests: XCTestCase {
 	func testConditionalViewModifierSnapshot() throws {
-#if canImport(UIKit)
+#if os(iOS)
 		let conditionalView = Group {
 			Text("With Background")
 				.if(true) {

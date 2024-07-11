@@ -9,11 +9,13 @@ public struct NavigationButtonStyle: ButtonStyle {
 		NavigationLink {
 		} label: {
 			configuration.label
-		}.background(
+		}.background(content: {
+#if os(iOS) || os(macOS)
 			ListRowInteractor(
 				isSelected: configuration.isPressed
 			)
-		)
+#endif
+		})
 	}
 
 	#if os(iOS)

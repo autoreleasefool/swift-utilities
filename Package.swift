@@ -8,6 +8,7 @@ let package = Package(
 	platforms: [
 		.iOS("17.0"),
 		.macOS("14.0"),
+		.watchOS("9.0"),
 	],
 	products: [
 		// MARK: - Features

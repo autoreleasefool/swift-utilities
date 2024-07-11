@@ -1,6 +1,6 @@
 import SwiftUI
 
-#if canImport(UIKit)
+#if canImport(UIKit) && os(iOS)
 extension UIApplication {
 	var keyWindow: UIWindow? {
 		connectedScenes

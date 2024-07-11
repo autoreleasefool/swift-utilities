@@ -10,6 +10,9 @@ supported = [ "\"17.0\"" ]
 [platforms.macOS]
 supported = [ "\"14.0\"" ]
 
+[platforms.watchOS]
+supported = [ "\"9.0\"" ]
+
 # Services
 
 [services.AnalyticsPackage.interface]

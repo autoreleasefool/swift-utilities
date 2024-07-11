@@ -37,6 +37,7 @@ final class GRDBDatabaseServiceTests: XCTestCase {
 			$0.grdb.initialize = liveValue.initialize
 		} operation: {
 			try self.grdb.initialize(
+				dbUrl: nil,
 				migrations: [TestMigration.self],
 				eraseDatabaseOnSchemaChange: false
 			)

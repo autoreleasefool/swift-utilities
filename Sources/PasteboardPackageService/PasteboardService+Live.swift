@@ -10,8 +10,10 @@ extension PasteboardService: DependencyKey {
 	public static var liveValue: Self {
 		Self(
 			copyToClipboard: { value in
-#if canImport(UIKit)
+#if os(macOS)
 				UIPasteboard.general.string = value
+#elseif os(watchOS)
+				fatalError("Clipboard not available on watchOS")
 #elseif canImport(AppKit)
 				NSPasteboard.general.clearContents()
 				NSPasteboard.general.setString(value, forType: .string)
