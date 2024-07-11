@@ -4,10 +4,6 @@ import Foundation
 
 extension FileManagerService: DependencyKey {
 	public static var liveValue: Self {
-		@Sendable func getTemporaryDirectory() -> URL {
-			FileManager.default.temporaryDirectory
-		}
-
 		return Self(
 			getFileContents: { url in
 				try Data(contentsOf: url)
@@ -16,7 +12,9 @@ extension FileManagerService: DependencyKey {
 				try FileManager.default
 					.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
 			},
-			getTemporaryDirectory: getTemporaryDirectory,
+			getTemporaryDirectory: {
+				FileManager.default.temporaryDirectory
+			},
 			createDirectory: { url in
 				try FileManager.default
 					.createDirectory(at: url, withIntermediateDirectories: true)
