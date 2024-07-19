@@ -16,7 +16,7 @@ public struct FileManagerService: Sendable {
 }
 
 extension FileManagerService: TestDependencyKey {
-	public static var testValue = Self()
+	public static var testValue: Self { Self() }
 }
 
 extension DependencyValues {

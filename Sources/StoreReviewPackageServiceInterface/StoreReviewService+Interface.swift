@@ -14,7 +14,7 @@ public struct StoreReviewService: Sendable {
 }
 
 extension StoreReviewService: TestDependencyKey {
-	public static var testValue = Self()
+	public static var testValue: Self { Self() }
 }
 
 extension DependencyValues {

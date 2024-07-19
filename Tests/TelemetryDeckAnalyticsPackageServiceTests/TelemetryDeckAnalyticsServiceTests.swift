@@ -10,7 +10,7 @@ final class TelemetryDeckAnalyticsServiceTests: XCTestCase {
 
 	// MARK: - initialize
 
-	func test_initialize_withNoBundleKey_disablesAnalytics() throws {
+	@MainActor func test_initialize_withNoBundleKey_disablesAnalytics() throws {
 		let liveValue: AnalyticsService = .liveValue
 		let expectation = self.expectation(description: "initialized")
 
@@ -29,7 +29,7 @@ final class TelemetryDeckAnalyticsServiceTests: XCTestCase {
 		waitForExpectations(timeout: 1.0)
 	}
 
-	func test_intialize_withOptedInStatusOptedOut_disablesAnalytics() throws {
+	@MainActor func test_intialize_withOptedInStatusOptedOut_disablesAnalytics() throws {
 		let liveValue: AnalyticsService = .liveValue
 		let expectation = self.expectation(description: "initialized")
 
@@ -48,7 +48,7 @@ final class TelemetryDeckAnalyticsServiceTests: XCTestCase {
 		waitForExpectations(timeout: 1.0)
 	}
 
-	func test_initialize_withBundleKey_withOptedInStatusOptedIn_enablesAnalytics() throws {
+	@MainActor func test_initialize_withBundleKey_withOptedInStatusOptedIn_enablesAnalytics() throws {
 		let liveValue: AnalyticsService = .liveValue
 
 		let expectation = self.expectation(description: "initialized")

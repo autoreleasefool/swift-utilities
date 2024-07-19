@@ -12,7 +12,7 @@ extension DatabaseReader {
 		}
 
 	public func observeOne<Model>(
-			_ fetch: @escaping (Database) throws -> Model?
+			_ fetch: @escaping @Sendable (Database) throws -> Model?
 	) -> AsyncThrowingStream<Model, Error> {
 		.init { continuation in
 			let task = Task {

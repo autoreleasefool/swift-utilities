@@ -7,7 +7,7 @@ public struct PasteboardService: Sendable {
 }
 
 extension PasteboardService: TestDependencyKey {
-	public static var testValue = Self()
+	public static var testValue: Self { Self() }
 }
 
 extension DependencyValues {

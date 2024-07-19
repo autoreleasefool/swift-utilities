@@ -75,11 +75,11 @@ struct TelemetryDeckClient: Sendable {
 }
 
 extension TelemetryDeckClient: TestDependencyKey {
-	static var testValue = Self()
+	public static var testValue: Self { Self() }
 }
 
 extension TelemetryDeckClient: DependencyKey {
-	static var liveValue = live()
+	static var liveValue: Self { live() }
 
 	static func live() -> Self {
 		Self(

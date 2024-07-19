@@ -2,23 +2,20 @@ import Foundation
 import GRDB
 
 public enum FetchableError: Error, LocalizedError {
-	case recordNotFound(type: Any.Type, id: Any)
-	case allRecordsNotFound(type: Any.Type, allIds: Any, foundIds: Any)
+	case recordNotFound(type: Any.Type, id: Sendable)
 	case fetchRequestFailed(type: Any.Type, statement: String)
 
 	public var errorDescription: String? {
 		switch self {
 		case let .recordNotFound(type, id):
 			return "Could not find ID '\(id)' for \(type)"
-		case let .allRecordsNotFound(type, allIds, foundIds):
-			return "Could not find all IDs '\(allIds)' for \(type). Found '\(foundIds)"
 		case let .fetchRequestFailed(type, statement):
 			return "Failed to resolve request for \(type): \(statement)"
 		}
 	}
 }
 
-extension FetchableRecord where Self: TableRecord & Identifiable, ID: DatabaseValueConvertible {
+extension FetchableRecord where Self: TableRecord & Identifiable, ID: DatabaseValueConvertible & Sendable {
 	public static func fetchOneGuaranteed(_ db: Database, id: ID) throws -> Self {
 		guard let result = try filter(id: id).fetchOne(db) else {
 			throw FetchableError.recordNotFound(type: Self.self, id: id)

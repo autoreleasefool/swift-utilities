@@ -10,7 +10,7 @@ public struct BundleService: Sendable {
 }
 
 extension BundleService: TestDependencyKey {
-	public static var testValue = Self()
+	public static var testValue: Self { Self() }
 }
 
 extension DependencyValues {

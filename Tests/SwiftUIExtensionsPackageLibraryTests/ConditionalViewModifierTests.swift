@@ -4,7 +4,7 @@ import SwiftUI
 import XCTest
 
 final class ConditionalViewModifierTests: XCTestCase {
-	func testConditionalViewModifierSnapshot() throws {
+	@MainActor func testConditionalViewModifierSnapshot() throws {
 #if os(iOS)
 		let conditionalView = Group {
 			Text("With Background")

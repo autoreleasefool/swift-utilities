@@ -13,6 +13,10 @@ supported = [ "\"14.0\"" ]
 [platforms.watchOS]
 supported = [ "\"9.0\"" ]
 
+# Configuration
+[shared]
+swift_settings = [ ".enableExperimentalFeature(\"StrictConcurrency\")" ]
+
 # Services
 
 [services.AnalyticsPackage.interface]
@@ -47,10 +51,8 @@ libraries = [ "ErrorReportingClientPackage" ]
 dependencies = [ "Sentry" ]
 
 [services.FeatureFlagsPackage]
-swift_settings = [ ".enableExperimentalFeature(\"StrictConcurrency\")" ]
 services = [ "BundlePackage", "UserDefaultsPackage" ]
 [services.FeatureFlagsPackage.interface]
-swift_settings = [ ".enableExperimentalFeature(\"StrictConcurrency\")" ]
 libraries = [ "FeatureFlagsPackage" ]
 dependencies = [ "Dependencies", "DependenciesMacros" ]
 

@@ -12,7 +12,7 @@ final class StoreReviewServiceTests: XCTestCase {
 
 	func test_initialize_setsProperties() {
 		let liveValue: StoreReviewService = .liveValue
-		let cache = LockIsolated<[String: Any]>([:])
+		let cache = LockIsolated<[String: Sendable]>([:])
 
 		withDependencies {
 			$0.userDefaults.setInt = { @Sendable key, value in cache.withValue { $0[key] = value } }
@@ -38,7 +38,7 @@ final class StoreReviewServiceTests: XCTestCase {
 
 	func test_shouldRequestReview_withRequirementsMet_returnsTrue() throws {
 		let liveValue: StoreReviewService = .liveValue
-		let cache = LockIsolated<[String: Any]>([
+		let cache = LockIsolated<[String: Sendable]>([
 			.canReviewVersionMultipleTimes: false,
 			.lastReviewRequestDate: 1.0,
 			.lastReviewRequestVersion: "1.2.3 (92)",
@@ -67,7 +67,7 @@ final class StoreReviewServiceTests: XCTestCase {
 
 	func test_shouldRequestReview_withTooFewSessions_returnsFalse() throws {
 		let liveValue: StoreReviewService = .liveValue
-		let cache = LockIsolated<[String: Any]>([
+		let cache = LockIsolated<[String: Sendable]>([
 			.canReviewVersionMultipleTimes: false,
 			.lastReviewRequestDate: 1.0,
 			.lastReviewRequestVersion: "1.2.3 (92)",
@@ -96,7 +96,7 @@ final class StoreReviewServiceTests: XCTestCase {
 
 	func test_shouldRequestReview_withTooFewDaysSinceInstall_returnsFalse() throws {
 		let liveValue: StoreReviewService = .liveValue
-		let cache = LockIsolated<[String: Any]>([
+		let cache = LockIsolated<[String: Sendable]>([
 			.canReviewVersionMultipleTimes: false,
 			.lastReviewRequestDate: 1.0,
 			.lastReviewRequestVersion: "1.2.3 (92)",
@@ -125,7 +125,7 @@ final class StoreReviewServiceTests: XCTestCase {
 
 	func test_shouldRequestReview_withTooFewDaysSinceLastRequest_returnsFalse() throws {
 		let liveValue: StoreReviewService = .liveValue
-		let cache = LockIsolated<[String: Any]>([
+		let cache = LockIsolated<[String: Sendable]>([
 			.canReviewVersionMultipleTimes: false,
 			.lastReviewRequestDate: 1_234_567_889.0,
 			.lastReviewRequestVersion: "1.2.3 (92)",
@@ -154,7 +154,7 @@ final class StoreReviewServiceTests: XCTestCase {
 
 	func test_shouldRequestReview_withReviewOfSameVersion_returnsFalse() throws {
 		let liveValue: StoreReviewService = .liveValue
-		let cache = LockIsolated<[String: Any]>([
+		let cache = LockIsolated<[String: Sendable]>([
 			.canReviewVersionMultipleTimes: false,
 			.lastReviewRequestDate: 1.0,
 			.lastReviewRequestVersion: "1.2.3 (92)",
@@ -185,7 +185,7 @@ final class StoreReviewServiceTests: XCTestCase {
 
 	func test_didRequestReview_setsProperties() {
 		let liveValue: StoreReviewService = .liveValue
-		let cache = LockIsolated<[String: Any]>([:])
+		let cache = LockIsolated<[String: Sendable]>([:])
 
 		withDependencies {
 			$0.date = .constant(Date(timeIntervalSince1970: 1_234_567_890))

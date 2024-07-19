@@ -1,3 +1,4 @@
+@preconcurrency import Combine
 import Dependencies
 import Foundation
 import UserDefaultsPackageServiceInterface

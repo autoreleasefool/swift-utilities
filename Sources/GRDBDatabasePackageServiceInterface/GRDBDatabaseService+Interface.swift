@@ -17,7 +17,7 @@ public struct GRDBDatabaseService: Sendable {
 }
 
 extension GRDBDatabaseService: TestDependencyKey {
-	public static var testValue = Self()
+	public static var testValue: Self { Self() }
 }
 
 extension DependencyValues {

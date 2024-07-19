@@ -23,7 +23,7 @@ public struct UserDefaultsService: Sendable {
 }
 
 extension UserDefaultsService: TestDependencyKey {
-	public static var testValue = Self()
+	public static var testValue: Self { Self() }
 }
 
 extension DependencyValues {

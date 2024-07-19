@@ -2,7 +2,7 @@ import AsyncAlgorithms
 import ConcurrencyExtras
 import Foundation
 
-public func sort<T: Identifiable>(
+public func sort<T: Identifiable & Sendable>(
 	_ itemsStream: AsyncStream<[T]>,
 	byIds idsStream: AsyncStream<[UUID]>
 ) -> AsyncStream<[T]> where T.ID == UUID {
@@ -11,7 +11,7 @@ public func sort<T: Identifiable>(
 		.eraseToStream()
 }
 
-public func sort<T: Identifiable>(
+public func sort<T: Identifiable & Sendable>(
 	_ itemsStream: AsyncThrowingStream<[T], Error>,
 	byIds idsStream: AsyncStream<[UUID]>
 ) -> AsyncThrowingStream<[T], Error> where T.ID == UUID {
