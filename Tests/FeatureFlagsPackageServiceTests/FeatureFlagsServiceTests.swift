@@ -6,22 +6,7 @@ import UserDefaultsPackageServiceInterface
 import XCTest
 
 final class FeatureFlagsServiceTests: XCTestCase {
-	let testQueue = DispatchQueue(label: "TestQueue")
-
 	@Dependency(\.featureFlags) var featureFlags
-
-	override func invokeTest() {
-		withDependencies {
-			$0.featureFlagsQueue = testQueue
-		} operation: {
-			super.invokeTest()
-		}
-	}
-
-	override func tearDown() {
-		// Wait for all changes to clean up
-		testQueue.sync { }
-	}
 
 	// MARK: - initialize
 

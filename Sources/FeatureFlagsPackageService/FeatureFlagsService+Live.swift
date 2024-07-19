@@ -1,4 +1,4 @@
-import Combine
+@preconcurrency import Combine
 import Dependencies
 import FeatureFlagsPackageLibrary
 import FeatureFlagsPackageServiceInterface
@@ -13,13 +13,11 @@ extension NSNotification.Name {
 
 extension FeatureFlagsService: DependencyKey {
 	public static var liveValue: Self {
-		@Dependency(\.featureFlagsQueue) var queue
-
-		let flagManager = FeatureFlagOverrides(queue: queue)
+		let flagOverrides = LockIsolated<[FeatureFlag: Bool]>([:])
 
 		@Sendable func isFlagEnabled(flag: FeatureFlag) -> Bool {
 			#if DEBUG
-			return flagManager.getOverride(flag: flag) ?? flag.isEnabled
+			return flagOverrides.value[flag] ?? flag.isEnabled
 			#else
 			return flag.isEnabled
 			#endif
@@ -27,7 +25,8 @@ extension FeatureFlagsService: DependencyKey {
 
 		@Sendable func areFlagsEnabled(flags: [FeatureFlag]) -> [FeatureFlag: Bool] {
 			#if DEBUG
-			let overrides = flagManager.getOverrides(flags: flags)
+			let flagOverrides = flagOverrides.value
+			let overrides = flags.map { $0.isOverridable ? flagOverrides[$0] : nil }
 			return zip(flags, overrides).reduce(into: [:]) { acc, override in
 				acc[override.0] = override.1 ?? override.0.isEnabled
 			}
@@ -38,7 +37,12 @@ extension FeatureFlagsService: DependencyKey {
 
 		return Self(
 			initialize: { allFeatureFlags in
-				flagManager.register(allFeatureFlags)
+				@Dependency(\.userDefaults) var userDefaults
+				flagOverrides.withValue {
+					for flag in allFeatureFlags {
+						$0[flag] = userDefaults.bool(forKey: flag.overrideKey)
+					}
+				}
 			},
 			isEnabled: isFlagEnabled(flag:),
 			allEnabled: { flags in areFlagsEnabled(flags: flags).allSatisfy { $0.value } },
@@ -77,11 +81,29 @@ extension FeatureFlagsService: DependencyKey {
 				}
 			},
 			setEnabled: { flag, enabled in
-				flagManager.setOverride(forFlag: flag, enabled: enabled)
+				guard flag.isOverridable else { return }
+
+				flagOverrides.withValue { $0[flag] = enabled }
+
+				@Dependency(\.userDefaults) var userDefaults
+				if let enabled {
+					userDefaults.setBool(forKey: flag.overrideKey, to: enabled)
+				} else {
+					userDefaults.remove(key: flag.overrideKey)
+				}
+
 				NotificationCenter.default.post(name: .FeatureFlag.didChange, object: flag)
 			},
 			resetOverrides: {
-				for flag in flagManager.resetOverrides() {
+				let resetFlags = flagOverrides.withValue {
+					let overriddenFlags = Array($0.keys)
+					$0.removeAll()
+					return overriddenFlags
+				}
+
+				@Dependency(\.userDefaults) var userDefaults
+				for flag in resetFlags {
+					userDefaults.remove(key: flag.overrideKey)
 					NotificationCenter.default.post(name: .FeatureFlag.didChange, object: flag)
 				}
 			}
@@ -89,75 +111,8 @@ extension FeatureFlagsService: DependencyKey {
 	}
 }
 
-class FeatureFlagOverrides {
-	private var allFlags: [FeatureFlag] = []
-
-	private let queue: DispatchQueue
-	private var queue_overrides: [FeatureFlag: Bool] = [:]
-
-	init(queue: DispatchQueue) {
-		self.queue = queue
-	}
-
-	func register(_ flags: [FeatureFlag]) {
-		@Dependency(\.userDefaults) var userDefaults
-		self.allFlags = flags
-		queue.sync {
-			for flag in allFlags {
-				queue_overrides[flag] = userDefaults.bool(forKey: flag.overrideKey)
-			}
-		}
-	}
-
-	func resetOverrides() -> [FeatureFlag] {
-		@Dependency(\.userDefaults) var userDefaults
-		return queue.sync {
-			let overridden = Array(self.queue_overrides.keys)
-			queue_overrides.removeAll()
-			for flag in allFlags {
-				userDefaults.remove(key: flag.overrideKey)
-			}
-			return overridden
-		}
-	}
-
-	func setOverride(forFlag flag: FeatureFlag, enabled: Bool?) {
-		@Dependency(\.userDefaults) var userDefaults
-		queue.async {
-			guard flag.isOverridable else { return }
-			self.queue_overrides[flag] = enabled
-			if let enabled {
-				userDefaults.setBool(forKey: flag.overrideKey, to: enabled)
-			} else {
-				userDefaults.remove(key: flag.overrideKey)
-			}
-		}
-	}
-
-	func getOverride(flag: FeatureFlag) -> Bool? {
-		guard flag.isOverridable else { return nil }
-		return queue.sync(flags: .barrier) { queue_overrides[flag] }
-	}
-
-	func getOverrides(flags: [FeatureFlag]) -> [Bool?] {
-		queue.sync(flags: .barrier) { flags.map { $0.isOverridable ? queue_overrides[$0] : nil } }
-	}
-}
-
 extension FeatureFlag {
 	var overrideKey: String {
 		"FeatureFlag.Override.\(name)"
-	}
-}
-
-extension DependencyValues {
-	var featureFlagsQueue: DispatchQueue {
-		get { self[FeatureFlagsQueueKey.self]  }
-		set { self[FeatureFlagsQueueKey.self] = newValue }
-	}
-
-	enum FeatureFlagsQueueKey: DependencyKey {
-		static var liveValue = DispatchQueue(label: "FeatureFlagsService.FeatureFlagManager", attributes: .concurrent)
-		static var testValue = DispatchQueue(label: "FeatureFlagsService.FeatureFlagManager", attributes: .concurrent)
 	}
 }

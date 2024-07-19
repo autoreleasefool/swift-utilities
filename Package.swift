@@ -125,6 +125,9 @@ let package = Package(
 				"BundlePackageServiceInterface",
 				"FeatureFlagsPackageServiceInterface",
 				"UserDefaultsPackageServiceInterface",
+			],
+			swiftSettings: [
+				.enableExperimentalFeature("StrictConcurrency"),
 			]
 		),
 		.target(
@@ -133,12 +136,18 @@ let package = Package(
 				.product(name: "Dependencies", package: "swift-dependencies"),
 				.product(name: "DependenciesMacros", package: "swift-dependencies"),
 				"FeatureFlagsPackageLibrary",
+			],
+			swiftSettings: [
+				.enableExperimentalFeature("StrictConcurrency"),
 			]
 		),
 		.testTarget(
 			name: "FeatureFlagsPackageServiceTests",
 			dependencies: [
 				"FeatureFlagsPackageService",
+			],
+			swiftSettings: [
+				.enableExperimentalFeature("StrictConcurrency"),
 			]
 		),
 		.target(

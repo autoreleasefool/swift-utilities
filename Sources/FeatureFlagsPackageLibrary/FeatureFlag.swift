@@ -1,4 +1,4 @@
-public struct FeatureFlag: Identifiable, Hashable {
+public struct FeatureFlag: Identifiable, Hashable, Sendable {
 	public let name: String
 	public let introduced: String
 	public let stage: RolloutStage
@@ -15,7 +15,7 @@ public struct FeatureFlag: Identifiable, Hashable {
 }
 
 extension FeatureFlag {
-	public enum RolloutStage: Comparable, CaseIterable {
+	public enum RolloutStage: Comparable, CaseIterable, Sendable {
 		case disabled
 		case development
 		case test

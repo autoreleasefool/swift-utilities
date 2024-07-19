@@ -47,8 +47,10 @@ libraries = [ "ErrorReportingClientPackage" ]
 dependencies = [ "Sentry" ]
 
 [services.FeatureFlagsPackage]
+swift_settings = [ ".enableExperimentalFeature(\"StrictConcurrency\")" ]
 services = [ "BundlePackage", "UserDefaultsPackage" ]
 [services.FeatureFlagsPackage.interface]
+swift_settings = [ ".enableExperimentalFeature(\"StrictConcurrency\")" ]
 libraries = [ "FeatureFlagsPackage" ]
 dependencies = [ "Dependencies", "DependenciesMacros" ]
 
@@ -100,7 +102,7 @@ skip_tests = true
 
 # Dependency Versions
 
-[sharedRefs.Dependencies]
+[shared.refs.Dependencies]
 url = "https://github.com/pointfreeco/swift-dependencies.git"
 from = "1.2.2"
 
@@ -111,10 +113,10 @@ url = "https://github.com/apple/swift-async-algorithms.git"
 from = "1.0.0"
 
 [dependencies.Dependencies]
-sharedRef = "Dependencies"
+dep_ref = "Dependencies"
 
 [dependencies.DependenciesMacros]
-sharedRef = "Dependencies"
+dep_ref = "Dependencies"
 
 [dependencies.ConcurrencyExtras]
 url = "https://github.com/pointfreeco/swift-concurrency-extras.git"

@@ -14,7 +14,7 @@ public struct FeatureFlagsService: Sendable {
 }
 
 extension FeatureFlagsService: TestDependencyKey {
-	public static var testValue = Self()
+	public static var testValue: Self { Self() }
 }
 
 extension DependencyValues {
