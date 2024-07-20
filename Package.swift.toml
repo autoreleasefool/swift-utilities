@@ -1,5 +1,5 @@
 name = "swift-utilities"
-tools_version = "5.9"
+tools_version = "5.10"
 default_localization = "en"
 
 # Platforms
