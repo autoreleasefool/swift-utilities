@@ -35,3 +35,17 @@ extension DatabaseReader {
 		}
 	}
 }
+
+extension HarmonicDatabaseReader {
+	public func observe<Model>(
+		_ fetch: @escaping (Database) throws -> [Model]
+	) -> AsyncThrowingStream<[Model], Error> {
+		reader.observe(fetch)
+	}
+
+	public func observeOne<Model>(
+			_ fetch: @escaping (Database) throws -> Model?
+	) -> AsyncThrowingStream<Model, Error> {
+		reader.observeOne(fetch)
+	}
+}

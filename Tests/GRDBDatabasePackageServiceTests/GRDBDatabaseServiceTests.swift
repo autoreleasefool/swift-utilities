@@ -34,6 +34,7 @@ final class GRDBDatabaseServiceTests: XCTestCase {
 				try FileManager.default
 					.createDirectory(at: $0, withIntermediateDirectories: true)
 			}
+			$0[GRDBInternalDatabaseService.self] = .liveValue
 			$0.grdb.initialize = liveValue.initialize
 		} operation: {
 			try self.grdb.initialize(

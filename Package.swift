@@ -57,6 +57,7 @@ let package = Package(
 		.package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.2.2"),
 		.package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.16.0"),
 		.package(url: "https://github.com/TelemetryDeck/SwiftSDK.git", from: "2.2.1"),
+		.package(path: "../Harmony"),
 	],
 	targets: [
 		// MARK: - Features
@@ -218,6 +219,7 @@ let package = Package(
 				.product(name: "ConcurrencyExtras", package: "swift-concurrency-extras"),
 				.product(name: "Dependencies", package: "swift-dependencies"),
 				.product(name: "DependenciesMacros", package: "swift-dependencies"),
+				.product(name: "Harmony", package: "Harmony"),
 				"GRDBDatabasePackageLibrary",
 			],
 			swiftSettings: [
