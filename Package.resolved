@@ -1,5 +1,5 @@
 {
-  "originHash" : "3671bb691b7aafb4b5c96c9ea4783b649449d2418efddc10ca4e149471b5cdd5",
+  "originHash" : "fa41388625d5a92c9a2c9f71c443ee657aa3908ac2ebf4b9f93b155d2dcd8493",
   "pins" : [
     {
       "identity" : "combine-schedulers",
@@ -17,6 +17,15 @@
       "state" : {
         "revision" : "639fa9168d36931b36a79e60dc06b7d23852f1f4",
         "version" : "6.27.0"
+      }
+    },
+    {
+      "identity" : "harmony",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/autoreleasefool/Harmony.git",
+      "state" : {
+        "branch" : "jroque-9-string-id",
+        "revision" : "0e572fdf3c8fd91e6ea930367b420232cce6497f"
       }
     },
     {
