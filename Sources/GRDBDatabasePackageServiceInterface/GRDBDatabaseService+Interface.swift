@@ -12,8 +12,8 @@ public struct GRDBDatabaseService: Sendable {
 		_ eraseDatabaseOnSchemaChange: Bool
 	) throws -> Void
 	public var close: @Sendable () throws -> Void
-	public var reader: @Sendable () -> DatabaseReader = { unimplemented("\(Self.self).reader") }
-	public var writer: @Sendable () -> DatabaseWriter = { unimplemented("\(Self.self).writer") }
+	public var reader: @Sendable () throws -> DatabaseReader
+	public var writer: @Sendable () throws -> DatabaseWriter
 }
 
 extension GRDBDatabaseService: TestDependencyKey {

@@ -1,8 +1,8 @@
 import ConcurrencyExtras
-import GRDB
+@preconcurrency import GRDB
 
 extension DatabaseReader {
-	public func observe<Model>(
+	public func observe<Model: Sendable>(
 			_ fetch: @escaping (Database) throws -> [Model]
 		) -> AsyncThrowingStream<[Model], Error> {
 			ValueObservation
@@ -11,7 +11,7 @@ extension DatabaseReader {
 				.eraseToThrowingStream()
 		}
 
-	public func observeOne<Model>(
+	public func observeOne<Model: Sendable>(
 			_ fetch: @escaping @Sendable (Database) throws -> Model?
 	) -> AsyncThrowingStream<Model, Error> {
 		.init { continuation in

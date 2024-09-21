@@ -6,7 +6,7 @@ import UserDefaultsPackageServiceInterface
 
 extension AppInfoService: DependencyKey {
 	public static var liveValue: Self {
-		let initialized = ActorIsolated(false)
+		let initialized = LockIsolated(false)
 
 		@Sendable func getNumberOfSessions() -> Int {
 			@Dependency(\.userDefaults) var userDefaults
@@ -30,8 +30,8 @@ extension AppInfoService: DependencyKey {
 
 		return Self(
 			initialize: {
-				guard await !initialized.value else { return }
-				await initialized.setValue(true)
+				guard !initialized.value else { return }
+				initialized.setValue(true)
 
 				@Dependency(\.userDefaults) var userDefaults
 				userDefaults.setInt(forKey: .appSessions, to: getNumberOfSessions() + 1)

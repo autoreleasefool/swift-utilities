@@ -1,10 +1,10 @@
 import SnapshotTesting
 import SwiftUI
 @testable import SwiftUIExtensionsPackageLibrary
-import XCTest
+import Testing
 
-final class ConditionalViewModifierTests: XCTestCase {
-	@MainActor func testConditionalViewModifierSnapshot() throws {
+struct ConditionalViewModifierTests {
+	@Test @MainActor func snapshot() throws {
 #if os(iOS)
 		let conditionalView = Group {
 			Text("With Background")
@@ -17,14 +17,11 @@ final class ConditionalViewModifierTests: XCTestCase {
 					$0.background(Rectangle().fill(.red))
 				}
 		}
+		.frame(width: 428)
 
-		let vc = UIHostingController(rootView: conditionalView)
-		vc.view.frame = UIScreen.main.bounds
-
-		assertSnapshot(matching: vc, as: .image(on: .iPhoneSe))
+		assertSnapshot(of: conditionalView, as: .image)
 #else
 		try XCTSkipIf(true)
 #endif
 	}
-
 }

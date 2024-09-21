@@ -8,7 +8,7 @@ import UserDefaultsPackageServiceInterface
 
 extension AnalyticsService: DependencyKey {
 	public static var liveValue: Self {
-		let properties = ActorIsolated<[String: String]>([:])
+		let properties = LockIsolated<[String: String]>([:])
 		let userDefaultsOptInKey = "telemetryDeckAnalyticsOptIn"
 
 		@Sendable func getOptInStatus() -> Analytics.OptInStatus {
@@ -17,7 +17,7 @@ extension AnalyticsService: DependencyKey {
 		}
 
 		@Sendable func initialize() {
-			@Dependency(\.bundle) var bundle
+			@Dependency(BundleService.self) var bundle
 			@Dependency(TelemetryDeckClient.self) var telemetryDeck
 
 			let telemetryDeckApiKey: String = {
@@ -40,11 +40,11 @@ extension AnalyticsService: DependencyKey {
 			initialize: initialize,
 			trackEvent: { event in
 				@Dependency(TelemetryDeckClient.self) var telemetryDeck
-				let payload = (event.payload ?? [:]).merging(await properties.value) { first, _ in first }
+				let payload = (event.payload ?? [:]).merging(properties.value) { first, _ in first }
 				telemetryDeck.send(event.name, with: payload)
 			},
 			setGlobalProperty: { key, value in
-				await properties.withValue {
+				properties.withValue {
 					if let value {
 						$0[key] = value
 					} else {

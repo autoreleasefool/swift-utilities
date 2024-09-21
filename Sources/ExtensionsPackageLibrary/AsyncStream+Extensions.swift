@@ -20,7 +20,7 @@ public func sort<T: Identifiable & Sendable>(
 		.eraseToThrowingStream()
 }
 
-public func `prefix`<T>(
+public func `prefix`<T: Sendable>(
 	_ itemsStream: AsyncStream<[T]>,
 	ofSize: Int
 ) -> AsyncStream<[T]> {
@@ -29,7 +29,7 @@ public func `prefix`<T>(
 		.eraseToStream()
 }
 
-public func `prefix`<T>(
+public func `prefix`<T: Sendable>(
 	_ itemsStream: AsyncThrowingStream<[T], Error>,
 	ofSize: Int
 ) -> AsyncThrowingStream<[T], Error> {
