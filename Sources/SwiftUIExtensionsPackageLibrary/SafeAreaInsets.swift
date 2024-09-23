@@ -2,7 +2,7 @@ import SwiftUI
 
 #if canImport(UIKit) && os(iOS)
 extension UIApplication {
-	@MainActor var keyWindow: UIWindow? {
+	@MainActor public var keyWindow: UIWindow? {
 		connectedScenes
 			.compactMap { $0 as? UIWindowScene }
 			.flatMap { $0.windows }
@@ -11,7 +11,7 @@ extension UIApplication {
 }
 
 public struct SafeAreaInsetsProvider {
-	@MainActor func get() -> EdgeInsets {
+	@MainActor public func get() -> EdgeInsets {
 		UIApplication.shared.keyWindow?.safeAreaInsets.swiftUiInsets ?? EdgeInsets()
 	}
 }
