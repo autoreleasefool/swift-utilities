@@ -13,3 +13,5 @@ public struct NeverEqual<V>: Equatable {
 		self.wrapped[keyPath: keyPath]
 	}
 }
+
+extension NeverEqual: Sendable where V: Sendable {}

@@ -13,3 +13,5 @@ public struct AlwaysEqual<V>: Equatable {
 		self.wrapped[keyPath: keyPath]
 	}
 }
+
+extension AlwaysEqual: Sendable where V: Sendable {}
