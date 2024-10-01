@@ -1,0 +1,115 @@
+{
+  "configurations" : [
+    {
+      "id" : "D80BECA6-94A4-4BF6-BD1B-7169669C43B5",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "AnalyticsPackageServiceTests",
+        "name" : "AnalyticsPackageServiceTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "AppInfoPackageServiceTests",
+        "name" : "AppInfoPackageServiceTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "EquatablePackageLibraryTests",
+        "name" : "EquatablePackageLibraryTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "ExtensionsPackageLibraryTests",
+        "name" : "ExtensionsPackageLibraryTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "FeatureFlagsPackageLibraryTests",
+        "name" : "FeatureFlagsPackageLibraryTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "FeatureFlagsPackageServiceTests",
+        "name" : "FeatureFlagsPackageServiceTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "FileManagerPackageServiceTests",
+        "name" : "FileManagerPackageServiceTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "GRDBDatabasePackageLibraryTests",
+        "name" : "GRDBDatabasePackageLibraryTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "GRDBDatabasePackageServiceTests",
+        "name" : "GRDBDatabasePackageServiceTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "PasteboardPackageServiceTests",
+        "name" : "PasteboardPackageServiceTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "StoreReviewPackageServiceTests",
+        "name" : "StoreReviewPackageServiceTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "SwiftUIExtensionsPackageLibraryTests",
+        "name" : "SwiftUIExtensionsPackageLibraryTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "TelemetryDeckAnalyticsPackageServiceTests",
+        "name" : "TelemetryDeckAnalyticsPackageServiceTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "UserDefaultsPackageServiceTests",
+        "name" : "UserDefaultsPackageServiceTests"
+      }
+    }
+  ],
+  "version" : 1
+}
