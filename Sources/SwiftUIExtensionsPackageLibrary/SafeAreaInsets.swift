@@ -36,13 +36,17 @@ private struct SafeAreaInsetsKey: EnvironmentKey {
 }
 
 extension EnvironmentValues {
-	@available(*, deprecated, renamed: "safeAreaInsetsProvider", message: "SafeAreaInsetsProvider offers MainActor isolated access to SafeAreaInsets")
+	@available(
+		*,
+		 deprecated,
+		 renamed: "safeAreaInsetsProvider",
+		 message: "SafeAreaInsetsProvider offers MainActor isolated access to SafeAreaInsets"
+	)
 	public var safeAreaInsets: EdgeInsets {
 		self[SafeAreaInsetsKey.self]
 	}
 }
 #endif
-
 
 private extension UIEdgeInsets {
 	var swiftUiInsets: EdgeInsets {

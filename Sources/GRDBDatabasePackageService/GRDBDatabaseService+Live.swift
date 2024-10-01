@@ -26,7 +26,6 @@ extension GRDBDatabaseService: DependencyKey {
 
 						dbUrl = folderUrl.appending(path: "db.sqlite")
 					} catch {
-						// FIXME: should notify user of failure to open DB
 						fatalError("Unable to access database path: \(error)")
 					}
 				}
@@ -46,7 +45,6 @@ extension GRDBDatabaseService: DependencyKey {
 					try migrator.migrate(dbPool)
 					writer.setValue(dbPool)
 				} catch {
-					// FIXME: should notify user of failure to open DB
 					fatalError("Unable to access database: \(error)")
 				}
 			},

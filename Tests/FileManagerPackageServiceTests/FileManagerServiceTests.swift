@@ -32,7 +32,7 @@ final class FileManagerServiceTests: XCTestCase {
 			try fileManager.getFileContents(filePath)
 		}
 
-		let readContents = String(data: readData, encoding: .utf8)
+		let readContents = String(decoding: readData, as: UTF8.self)
 		XCTAssertEqual(originalContents, readContents)
 	}
 
@@ -135,7 +135,7 @@ final class FileManagerServiceTests: XCTestCase {
 		XCTAssertTrue(FileManager.default.fileExists(atPath: copiedFilePath.path()))
 
 		let readData = try XCTUnwrap(Data(contentsOf: copiedFilePath))
-		let copiedContents = try XCTUnwrap(String(data: readData, encoding: .utf8))
+		let copiedContents = try XCTUnwrap(String(decoding: readData, as: UTF8.self))
 		XCTAssertEqual(originalContents, copiedContents)
 	}
 
@@ -160,7 +160,7 @@ final class FileManagerServiceTests: XCTestCase {
 		XCTAssertTrue(FileManager.default.fileExists(atPath: movedFilePath.path()))
 
 		let readData = try XCTUnwrap(Data(contentsOf: movedFilePath))
-		let movedContents = try XCTUnwrap(String(data: readData, encoding: .utf8))
+		let movedContents = try XCTUnwrap(String(decoding: readData, as: UTF8.self))
 		XCTAssertEqual(originalContents, movedContents)
 	}
 

@@ -15,7 +15,9 @@ public struct UserDefaultsService: Sendable {
 	public var setString: @Sendable (_ forKey: String, _ to: String) -> Void
 	public var stringArray: @Sendable (_ forKey: String) -> [String]?
 	public var setStringArray: @Sendable (_ forKey: String, _ to: [String]) -> Void
-	public var contains: @Sendable (_ key: String) -> Bool = { _ in unimplemented("\(Self.self).contains", placeholder: false) }
+	public var contains: @Sendable (_ key: String) -> Bool = { _ in
+		unimplemented("\(Self.self).contains", placeholder: false)
+	}
 	public var remove: @Sendable (_ key: String) -> Void
 	public var observe: @Sendable (_ keys: Set<String>) -> AsyncStream<String> = { _ in
 		unimplemented("\(Self.self).observe", placeholder: .never)
