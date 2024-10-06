@@ -23,6 +23,9 @@ extension FileManagerService: DependencyKey {
 				try FileManager.default
 					.contentsOfDirectory(at: url, includingPropertiesForKeys: [], options: [])
 			},
+			urlForUbiquityContainerIdentifier: { identifier in
+				FileManager.default.url(forUbiquityContainerIdentifier: identifier)
+			},
 			copyItem: { at, to in
 				try FileManager.default
 					.copyItem(at: at, to: to)
