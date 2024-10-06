@@ -4,6 +4,7 @@ import Foundation
 
 @DependencyClient
 public struct FileManagerService: Sendable {
+	public var attributesOfItem: @Sendable (_ atPath: String) throws -> [FileAttributeKey: Any]
 	public var getFileContents: @Sendable (URL) throws -> Data
 	public var getUserDirectory: @Sendable () throws -> URL
 	public var getTemporaryDirectory: @Sendable () throws -> URL

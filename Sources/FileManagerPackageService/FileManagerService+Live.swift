@@ -5,6 +5,9 @@ import Foundation
 extension FileManagerService: DependencyKey {
 	public static var liveValue: Self {
 		return Self(
+			attributesOfItem: { path in
+				try FileManager.default.attributesOfItem(atPath: path)
+			},
 			getFileContents: { url in
 				try Data(contentsOf: url)
 			},
