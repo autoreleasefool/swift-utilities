@@ -24,7 +24,7 @@ extension AnalyticsService: DependencyKey {
 				bundle.object(forInfoDictionaryKey: "TELEMETRY_DECK_API_KEY") as? String ?? ""
 			}()
 
-			let configuration = TelemetryDeck.Config(appID: telemetryDeckApiKey)
+			var configuration = TelemetryDeck.Config(appID: telemetryDeckApiKey)
 			if telemetryDeckApiKey.isEmpty {
 				print("Analytics disabled")
 				configuration.analyticsDisabled = true
@@ -85,7 +85,7 @@ extension TelemetryDeckClient: DependencyKey {
 		Self(
 			initialize: { configuration in TelemetryDeck.initialize(config: configuration) },
 			send: { name, payload in TelemetryDeck.signal(name, parameters: payload) },
-			terminate: { TelemetryManager.terminate() }
+			terminate: { TelemetryDeck.terminate() }
 		)
 	}
 }
