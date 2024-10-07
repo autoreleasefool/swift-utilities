@@ -87,7 +87,3 @@ extension FileCoordinatorService: DependencyKey {
 		)
 	}
 }
-
-public enum FileCoordinatorServiceError: Error {
-	case coordinatorDoesNotExist
-}

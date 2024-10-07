@@ -4,6 +4,10 @@ import Foundation
 
 public typealias FileCoordinatorID = UUID
 
+public enum FileCoordinatorServiceError: Error {
+	case coordinatorDoesNotExist
+}
+
 @DependencyClient
 public struct FileCoordinatorService: Sendable {
 	public var createCoordinator: @Sendable () -> FileCoordinatorID = {
