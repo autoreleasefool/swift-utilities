@@ -9,13 +9,21 @@ public struct FileManagerService: Sendable {
 	public var getUserDirectory: @Sendable () throws -> URL
 	public var getTemporaryDirectory: @Sendable () throws -> URL
 	public var createDirectory: @Sendable (URL) throws -> Void
-	public var contentsOfDirectory: @Sendable (_ at: URL) throws -> [URL]
+	public var contentsOfDirectory: @Sendable (
+		_ at: URL,
+		_ includingPropertiesForKeys: [URLResourceKey]?,
+		_ options: FileManager.DirectoryEnumerationOptions
+	) throws -> [URL]
 	public var urlForUbiquityContainerIdentifier: @Sendable (_: String?) -> URL?
 	public var ubiquityIdentityToken: @Sendable () -> (any NSCoding & NSCopying & NSObjectProtocol)?
 	public var copyItem: @Sendable (_ at: URL, _ to: URL) throws -> Void
 	public var moveItem: @Sendable (_ at: URL, _ to: URL) throws -> Void
 	public var remove: @Sendable (URL) throws -> Void
 	public var exists: @Sendable (URL) throws -> Bool
+
+	@Sendable public func contentsOfDirectory(at: URL) throws -> [URL] {
+		try self.contentsOfDirectory(at: at, includingPropertiesForKeys: nil, options: [])
+	}
 }
 
 extension FileManagerService: TestDependencyKey {

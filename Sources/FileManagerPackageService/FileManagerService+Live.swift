@@ -22,9 +22,9 @@ extension FileManagerService: DependencyKey {
 				try FileManager.default
 					.createDirectory(at: url, withIntermediateDirectories: true)
 			},
-			contentsOfDirectory: { url in
+			contentsOfDirectory: { url, keys, options in
 				try FileManager.default
-					.contentsOfDirectory(at: url, includingPropertiesForKeys: [], options: [])
+					.contentsOfDirectory(at: url, includingPropertiesForKeys: keys, options: options)
 			},
 			urlForUbiquityContainerIdentifier: { identifier in
 				FileManager.default.url(forUbiquityContainerIdentifier: identifier)
