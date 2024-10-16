@@ -36,18 +36,18 @@ private actor FileCoordinator {
 		accessor: @Sendable (URL) throws -> Void
 	) throws {
 		var coordinatorError: NSError?
-		var readError: Error?
+		var writeError: Error?
 
 		coordinator.coordinate(writingItemAt: url, options: options, error: &coordinatorError) { url in
 			do {
 				try accessor(url)
 			} catch {
-				readError = error
+				writeError = error
 			}
 		}
 
-		if let readError {
-			throw readError
+		if let writeError {
+			throw writeError
 		}
 
 		if let coordinatorError {
