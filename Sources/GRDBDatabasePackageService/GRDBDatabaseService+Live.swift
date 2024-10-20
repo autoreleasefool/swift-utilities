@@ -7,55 +7,23 @@ import GRDBDatabasePackageServiceInterface
 
 extension GRDBDatabaseService: DependencyKey {
 	public static var liveValue: Self {
-		let writer = LockIsolated<(any DatabaseWriter)?>(nil)
+		let instance = LockIsolated<GRDBDatabaseProvider?>(nil)
 
 		return Self(
 			initialize: { suppliedDbUrl, migrations, eraseDatabaseOnSchemaChange in
-				@Dependency(\.fileManager) var fileManager
-
-				let dbUrl: URL
-				if let suppliedDbUrl {
-					dbUrl = suppliedDbUrl
-				} else {
-					do {
-						let folderUrl = try fileManager
-							.getUserDirectory()
-							.appending(path: "database", directoryHint: .isDirectory)
-
-						try fileManager.createDirectory(folderUrl)
-
-						dbUrl = folderUrl.appending(path: "db.sqlite")
-					} catch {
-						fatalError("Unable to access database path: \(error)")
-					}
-				}
-
-				do {
-					let dbPool = try DatabasePool(path: dbUrl.path())
-					var migrator = DatabaseMigrator()
-
-					#if DEBUG
-					migrator.eraseDatabaseOnSchemaChange = eraseDatabaseOnSchemaChange
-					#endif
-
-					for migration in migrations {
-						migrator.register(migration: migration)
-					}
-
-					try migrator.migrate(dbPool)
-					writer.setValue(dbPool)
-				} catch {
-					fatalError("Unable to access database: \(error)")
-				}
+				instance.setValue(
+					GRDBDatabaseProvider(
+						url: suppliedDbUrl,
+						migrations: migrations,
+						eraseDatabaseOnSchemaChange: eraseDatabaseOnSchemaChange
+					)
+				)
 			},
 			close: {
-				try writer.withValue {
-					try $0?.close()
-					$0 = nil
-				}
+				instance.setValue(nil)
 			},
-			reader: { writer.value! },
-			writer: { writer.value! }
+			reader: { instance.value!.reader },
+			writer: { instance.value!.writer }
 		)
 	}
 }
