@@ -37,10 +37,10 @@ skip_tests = true
 dependencies = [ "Dependencies", "DependenciesMacros" ]
 
 [services.GRDBDatabasePackage]
-services = [ "FileManagerPackage" ]
 [services.GRDBDatabasePackage.interface]
+services = [ "FileManagerPackage" ]
 libraries = [ "GRDBDatabasePackage" ]
-dependencies = [ "ConcurrencyExtras", "Dependencies", "DependenciesMacros" ]
+dependencies = [ "ConcurrencyExtras" ]
 [services.GRDBDatabasePackage.tests]
 libraries = [ "TestUtilitiesPackage" ]
 

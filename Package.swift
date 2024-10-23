@@ -205,7 +205,6 @@ let package = Package(
 		.target(
 			name: "GRDBDatabasePackageService",
 			dependencies: [
-				"FileManagerPackageServiceInterface",
 				"GRDBDatabasePackageServiceInterface",
 			],
 			swiftSettings: [
@@ -216,8 +215,7 @@ let package = Package(
 			name: "GRDBDatabasePackageServiceInterface",
 			dependencies: [
 				.product(name: "ConcurrencyExtras", package: "swift-concurrency-extras"),
-				.product(name: "Dependencies", package: "swift-dependencies"),
-				.product(name: "DependenciesMacros", package: "swift-dependencies"),
+				"FileManagerPackageServiceInterface",
 				"GRDBDatabasePackageLibrary",
 			],
 			swiftSettings: [
