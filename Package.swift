@@ -51,12 +51,12 @@ let package = Package(
 	],
 	dependencies: [
 		.package(url: "https://github.com/apple/swift-async-algorithms.git", from: "1.0.0"),
-		.package(url: "https://github.com/getsentry/sentry-cocoa.git", from: "8.21.0"),
-		.package(url: "https://github.com/groue/GRDB.swift.git", from: "6.29.3"),
-		.package(url: "https://github.com/pointfreeco/swift-concurrency-extras.git", from: "1.2.0"),
-		.package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.4.1"),
-		.package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.17.5"),
-		.package(url: "https://github.com/TelemetryDeck/SwiftSDK.git", from: "2.2.1"),
+		.package(url: "https://github.com/getsentry/sentry-cocoa.git", from: "8.43.0"),
+		.package(url: "https://github.com/groue/GRDB.swift.git", from: "7.0.0"),
+		.package(url: "https://github.com/pointfreeco/swift-concurrency-extras.git", from: "1.3.1"),
+		.package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.6.3"),
+		.package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.17.7"),
+		.package(url: "https://github.com/TelemetryDeck/SwiftSDK.git", from: "2.7.0"),
 	],
 	targets: [
 		// MARK: - Features

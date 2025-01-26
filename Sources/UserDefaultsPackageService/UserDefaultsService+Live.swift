@@ -1,4 +1,3 @@
-@preconcurrency import Combine
 import Dependencies
 import Foundation
 import UserDefaultsPackageServiceInterface
@@ -54,18 +53,15 @@ extension UserDefaultsService: DependencyKey {
 				NotificationCenter.default.post(name: .UserDefaults.didChange, object: key)
 			},
 			observe: { keys in
-				.init { continuation in
-					let cancellable = NotificationCenter.default
-						.publisher(for: .UserDefaults.didChange)
-						.compactMap {
-							guard let key = $0.object as? String, keys.contains(key) else { return nil }
-							return key
-						}
-						.sink { key in
+				AsyncStream { continuation in
+					let task = Task {
+						for await notification in NotificationCenter.default.notifications(named: .UserDefaults.didChange) {
+							guard let key = notification.object as? String, keys.contains(key) else { continue }
 							continuation.yield(key)
 						}
+					}
 
-					continuation.onTermination = { _ in cancellable.cancel() }
+					continuation.onTermination = { _ in task.cancel() }
 				}
 			}
 		)

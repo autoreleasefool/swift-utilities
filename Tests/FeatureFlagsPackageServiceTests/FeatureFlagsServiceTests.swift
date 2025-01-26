@@ -171,10 +171,11 @@ final class FeatureFlagsServiceTests: XCTestCase {
 			XCTAssertEqual(observation, [.release: true, .development: true])
 
 			featureFlags.setEnabled(.development, false)
-			featureFlags.setEnabled(.release, false)
 
 			observation = await observations.next()
 			XCTAssertEqual(observation, [.release: true, .development: false])
+
+			featureFlags.setEnabled(.release, false)
 
 			observation = await observations.next()
 			XCTAssertEqual(observation, [.release: false, .development: false])

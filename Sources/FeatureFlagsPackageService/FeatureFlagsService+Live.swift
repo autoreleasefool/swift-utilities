@@ -1,4 +1,3 @@
-@preconcurrency import Combine
 import Dependencies
 import FeatureFlagsPackageLibrary
 import FeatureFlagsPackageServiceInterface
@@ -47,37 +46,31 @@ extension FeatureFlagsService: DependencyKey {
 			isEnabled: isFlagEnabled(flag:),
 			allEnabled: { flags in areFlagsEnabled(flags: flags).allSatisfy { $0.value } },
 			observe: { flag in
-				.init { continuation in
+				AsyncStream { continuation in
 					continuation.yield(isFlagEnabled(flag: flag))
 
-					let cancellable = NotificationCenter.default
-						.publisher(for: .FeatureFlag.didChange)
-						.filter {
-							guard let objectFlag = $0.object as? FeatureFlag else { return false }
-							return flag == objectFlag
-						}
-						.sink { _ in
+					let task = Task {
+						for await notification in NotificationCenter.default.notifications(named: .FeatureFlag.didChange) {
+							guard let objectFlag = notification.object as? FeatureFlag, flag == objectFlag else { continue }
 							continuation.yield(isFlagEnabled(flag: flag))
 						}
+					}
 
-					continuation.onTermination = { _ in cancellable.cancel() }
+					continuation.onTermination = { _ in task.cancel() }
 				}
 			},
 			observeAll: { flags in
-				.init { continuation in
+				AsyncStream { continuation in
 					continuation.yield(areFlagsEnabled(flags: flags))
 
-					let cancellable = NotificationCenter.default
-						.publisher(for: .FeatureFlag.didChange)
-						.filter {
-							guard let objectFlag = $0.object as? FeatureFlag else { return false }
-							return flags.contains(objectFlag)
-						}
-						.sink { _ in
+					let task = Task {
+						for await notification in NotificationCenter.default.notifications(named: .FeatureFlag.didChange) {
+							guard let objectFlag = notification.object as? FeatureFlag, flags.contains(objectFlag) else { continue }
 							continuation.yield(areFlagsEnabled(flags: flags))
 						}
+					}
 
-					continuation.onTermination = { _ in cancellable.cancel() }
+					continuation.onTermination = { _ in task.cancel() }
 				}
 			},
 			setEnabled: { flag, enabled in
