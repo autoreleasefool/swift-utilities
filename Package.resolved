@@ -1,5 +1,5 @@
 {
-  "originHash" : "852a1f93b2125ef5a6278cc18b15a223abee5f67aad2a875205daf35828151fc",
+  "originHash" : "1637d27fc6e4e7dbcf8093de6b209ea204fe0a24cb2370ee0805dd52698c1079",
   "pins" : [
     {
       "identity" : "combine-schedulers",
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/getsentry/sentry-cocoa.git",
       "state" : {
-        "revision" : "f45e9c62d7a4d9258ac3cf35a3acf9dbab4481d1",
-        "version" : "8.43.0"
+        "revision" : "6c81e671154e63464dd6749b7ba3279dd390a146",
+        "version" : "8.50.1"
       }
     },
     {
