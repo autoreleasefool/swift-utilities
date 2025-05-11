@@ -1,5 +1,5 @@
 name = "swift-utilities"
-tools_version = "6.0"
+tools_version = "6.1"
 default_localization = "en"
 
 # Platforms
@@ -12,10 +12,6 @@ supported = [ "\"14.0\"" ]
 
 [platforms.watchOS]
 supported = [ "\"9.0\"" ]
-
-# Configuration
-[shared]
-swift_settings = [ ".enableExperimentalFeature(\"StrictConcurrency\")" ]
 
 # Services
 
