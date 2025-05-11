@@ -55,7 +55,7 @@ let package = Package(
 		.package(url: "https://github.com/groue/GRDB.swift.git", from: "7.0.0"),
 		.package(url: "https://github.com/pointfreeco/swift-concurrency-extras.git", from: "1.3.1"),
 		.package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.9.2"),
-		.package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.17.7"),
+		.package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.18.3"),
 		.package(url: "https://github.com/TelemetryDeck/SwiftSDK.git", from: "2.7.0"),
 	],
 	targets: [
